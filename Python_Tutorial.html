@@ -1,0 +1,1860 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Python チュートリアル &mdash; Python で行う Web Scraping  ドキュメント</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="genindex.html"/>
+        <link rel="search" title="検索" href="search.html"/>
+    <link rel="top" title="Python で行う Web Scraping  ドキュメント" href="index.html"/>
+        <link rel="next" title="Python を使ったデータの整理、分析" href="Data_Analysis.html"/>
+        <link rel="prev" title="Python 事始め" href="Python事始め.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Python で行う Web Scraping
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Python事始め.html">Python 事始め</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Python チュートリアル</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#変数">変数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#エラー">エラー</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Python-の様々なデータ型">Python の様々なデータ型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#int-(整数）型">int (整数）型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#float-(小数点)-型">float (小数点) 型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#str-(文字列)-型">str (文字列) 型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#list-(リスト)-型">list (リスト) 型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dict-(辞書)-型">dict (辞書) 型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#taple-(タプル)-型">taple (タプル) 型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#データ型の調べ方">データ型の調べ方</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#四則演算">四則演算</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#メソッド-(Method)">メソッド (Method)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#モジュールのインポート">モジュールのインポート</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#属性-(Attribute)">属性 (Attribute)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ループ文">ループ文</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#for">for</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#while">while</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#関数">関数</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ローカル変数">ローカル変数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#無名関数">無名関数</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Data_Analysis.html">Python を使ったデータの整理、分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Webサイトの構成要素.html">Web サイトの構成要素</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_scraping.html">Web スクレイピング入門</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Selenium.html">動的 Web サイトのスクレイピング</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python で行う Web Scraping</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Python チュートリアル</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Python_Tutorial.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #303F9F;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #D84315;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 8ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    background: #f7f7f7;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.pngmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+/* nice headers on first paragraph of info/warning boxes */
+.admonition .first {
+    margin: -12px;
+    padding: 6px 12px;
+    margin-bottom: 12px;
+    color: #fff;
+    line-height: 1;
+    display: block;
+}
+.admonition.warning .first {
+    background: #f0b37e;
+}
+.admonition.note .first {
+    background: #6ab0de;
+}
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="Python-チュートリアル">
+<h1>Python チュートリアル<a class="headerlink" href="#Python-チュートリアル" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>Python はオブジェクト指向のプログラミング言語です。
+オブジェクト指向とは、その言葉通りオブジェクト（データ型）を使っていくことです。
+Python には、初めにいくつかのデータ型が用意されています。
+そのうち重要なものを紹介していきます。</p>
+<p>まずは、お馴染みの。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>print(&#39;Hello World!&#39;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Hello World!
+</pre></div></div>
+</div>
+<p>実はこの 1 行に Python のエッセンスが詰まっています。</p>
+<p>C などの言語では、先程の文を出すには 3
+行ほど必要なのですが、その時にいろいろな <strong>おまじない</strong>
+を書かなければいけないのです！ Python
+では、こうしたおまじないを極力書かないで済むので、自分がどういった操作をしているかが分かりやすく、学習が容易になるのです。</p>
+<div class="section" id="変数">
+<h2>変数<a class="headerlink" href="#変数" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>さて、データ型を説明する前に、変数について説明しましょう。
+変数には数字や文字などを格納することができます。 例えば、</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">apple</span> <span class="o">=</span> <span class="mi">100</span>
+</pre></div>
+</div>
+<p>とすれば、 <code class="docutils literal"><span class="pre">apple</span></code> に 100 という値が格納されます。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>apple = 100
+</pre></div>
+</div>
+</div>
+<p>変数の値を参照するには、変数名をタイプします。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>apple
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[3]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>100
+</pre></div>
+</div>
+</div>
+<p>何も格納していない変数を参照した場合は、エラーが返ってきます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>orange
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-4-6aefd2842be6&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>orange
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;orange&#39; is not defined
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="エラー">
+<h2>エラー<a class="headerlink" href="#エラー" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>プログラミングをしていく中で、エラーは必ず起こります。ですが、エラーが出たからといって、気落ちしないでください。
+まず、エラーが起きたら、エラーの内容をよく読んでみましょう。
+例えば、先の場合は、</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ne">NameError</span><span class="p">:</span> <span class="n">name</span> <span class="s1">&#39;orange&#39;</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">defined</span>
+</pre></div>
+</div>
+<p>という内容です。これは、<code class="docutils literal"><span class="pre">orange</span></code>
+という変数はまだ定義されていませんということです。 それでは、次に</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">orange</span> <span class="o">=</span> <span class="mi">150</span>
+</pre></div>
+</div>
+<p>と打ってみてから、<code class="docutils literal"><span class="pre">orange</span></code>を参照してみましょう。今度はエラーが出ないはずです。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>orange = 150
+orange
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[5]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>150
+</pre></div>
+</div>
+</div>
+<p>エラーの内容を読んでもよくわからなかった場合、エラーの内容をコピーして、ググりましょう。</p>
+<p>プログラミングに関する掲示板を提供する場として、<a class="reference external" href="https://stackoverflow.com/">stack
+overflow</a> が有名です。
+ほとんどの場合、こちらを参照すれば同じような問題を抱えた人がいて、それに対する答えも提供されていることでしょう（基本的に英語です）。
+また、 <a class="reference external" href="https://teratail.com/">teratail</a>
+という日本のサイトもあります。</p>
+<p>調べても答えが得られなかった場合は、上記の2つで質問してみるのもよいでしょう。</p>
+<p>他にも、このパッケージの使い方がいまいちわからない場合、
+<a class="reference external" href="http://qiita.com/">Qiita</a> で検索してみましょう。
+そのパッケージを使用した記事があるかもしれません。</p>
+</div>
+<div class="section" id="Python-の様々なデータ型">
+<h2>Python の様々なデータ型<a class="headerlink" href="#Python-の様々なデータ型" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="int-(整数）型">
+<h3>int (整数）型<a class="headerlink" href="#int-(整数）型" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>整数型は値に整数を持ちます。あまり説明する必要はないかもしれません。
+次の例は整数型です。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>1
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[6]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="float-(小数点)-型">
+<h3>float (小数点) 型<a class="headerlink" href="#float-(小数点)-型" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>小数点型は値に小数点を持ちます。整数の後に <code class="docutils literal"><span class="pre">.</span></code>
+をつけることで小数点型になります。 次の例は小数点型です。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>1.0
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[7]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>1.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="str-(文字列)-型">
+<h3>str (文字列) 型<a class="headerlink" href="#str-(文字列)-型" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>文字列型は値に文字列を持ちます。文字列の前後を シングルクォート `
+かダブルクォート &#8221; で囲みます。次の例は文字列型です。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>&#39;string&#39;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[8]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>&#39;string&#39;
+</pre></div>
+</div>
+</div>
+<p>文字列は足すことができます。しかし、引くことはできません。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>&#39;str&#39; + &#39;ing&#39;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[9]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>&#39;string&#39;
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>&#39;string&#39; - &#39;ing&#39;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-10-727aa3ca37e8&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span><span class="ansi-blue-intense-fg ansi-bold">&#39;string&#39;</span> <span class="ansi-yellow-intense-fg ansi-bold">-</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;ing&#39;</span>
+
+<span class="ansi-red-intense-fg ansi-bold">TypeError</span>: unsupported operand type(s) for -: &#39;str&#39; and &#39;str&#39;
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="list-(リスト)-型">
+<h3>list (リスト) 型<a class="headerlink" href="#list-(リスト)-型" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>リスト型はいくつかの値を持ちます。リストを作るには、かぎかっこ <code class="docutils literal"><span class="pre">[]</span></code>
+を使います。 複数の要素を持つリストを作る場合は、各要素を <code class="docutils literal"><span class="pre">,</span></code>
+で分けます。次の例はリストです。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>[1,2,3]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[11]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>[1, 2, 3]
+</pre></div>
+</div>
+</div>
+<p>リストの中には、様々なデータ型を入れられます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>[1,3.14,&#39;string&#39;]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[12]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>[1, 3.14, &#39;string&#39;]
+</pre></div>
+</div>
+</div>
+<p>リストとリストは足すことができますが、引くことはできません。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>[1,2,3] + [4,5,6]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[13]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>[1, 2, 3, 4, 5, 6]
+</pre></div>
+</div>
+</div>
+<p>リストの各要素を参照するには、かぎかっこ <code class="docutils literal"><span class="pre">[]</span></code>
+を用い、かぎかっこの中に参照したい要素の番号を入れます。 R とは違い、
+Python では、要素の番号は 0 から始まります（ R では 1 から）。
+リストにない番号を参照するとエラーが返ってきます。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>num_list = [1,2,3]
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>num_list[0]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[15]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>1
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>num_list[4]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">IndexError</span>                                Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-16-7d53ca9a24f1&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>num_list<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">4</span><span class="ansi-yellow-intense-fg ansi-bold">]</span>
+
+<span class="ansi-red-intense-fg ansi-bold">IndexError</span>: list index out of range
+</pre></div></div>
+</div>
+<p>マイナスの番号を入れると、後ろから参照します。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>num_list[-1]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[17]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>3
+</pre></div>
+</div>
+</div>
+<p>複数の要素を参照したい場合は、スライスを使います。 <code class="docutils literal"><span class="pre">[0:2]</span></code> とすると、0
+番目から 1 番目までの要素を参照します。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>num_list[0:2]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[18]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>[1, 2]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="dict-(辞書)-型">
+<h3>dict (辞書) 型<a class="headerlink" href="#dict-(辞書)-型" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>辞書型は、キーと値をセットで使います。辞書型を作るには、なみかっこ
+<code class="docutils literal"><span class="pre">{}</span></code> を使います。 <code class="docutils literal"><span class="pre">{キー：値}</span></code>
+という順番で各要素を作成します。複数のキーと値を持つ辞書を作る場合は、各要素を
+<code class="docutils literal"><span class="pre">,</span></code> で分けます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>{&#39;apple&#39;:100,&#39;orange&#39;:150}
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[19]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>{&#39;apple&#39;: 100, &#39;orange&#39;: 150}
+</pre></div>
+</div>
+</div>
+<p>辞書の要素を参照するには、<code class="docutils literal"><span class="pre">[]</span></code> を用います。<code class="docutils literal"><span class="pre">[]</span></code>
+の中にキーとなる値を入れると、そのキーに対応する値が返ってきます。キー以外の値を参照しようとすると、エラーが返ってきます。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>fruits = {&#39;apple&#39;:100,&#39;orange&#39;:150}
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>fruits[&#39;apple&#39;]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[21]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>100
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>fruits[&#39;melon&#39;]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">KeyError</span>                                  Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-22-0b3e4627bc82&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>fruits<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#39;melon&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span>
+
+<span class="ansi-red-intense-fg ansi-bold">KeyError</span>: &#39;melon&#39;
+</pre></div></div>
+</div>
+<p>新たにキーと値を追加するには、<code class="docutils literal"><span class="pre">辞書型[キー]</span> <span class="pre">=</span> <span class="pre">値</span></code> とします。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>fruits[&#39;melon&#39;] = 500
+fruits[&#39;melon&#39;]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[23]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>500
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="taple-(タプル)-型">
+<h3>taple (タプル) 型<a class="headerlink" href="#taple-(タプル)-型" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>タプル型はリスト型と同じように複数の要素を持つことができます。また、各要素の参照もリストと同じです。
+しかし、リスト型と違うのは、要素の追加、削除、編集ができないということです。
+意図せず値を書き換えてしまうことを防ぎたい場合は、タプルを使うとよいでしょう。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>car = (&#39;taxi&#39;,&#39;bus&#39;)
+car
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[24]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>(&#39;taxi&#39;, &#39;bus&#39;)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>car[0]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[25]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>&#39;taxi&#39;
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>car[0] = &#39;truck&#39;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-26-d29c1d9cfc39&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>car<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;truck&#39;</span>
+
+<span class="ansi-red-intense-fg ansi-bold">TypeError</span>: &#39;tuple&#39; object does not support item assignment
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="データ型の調べ方">
+<h3>データ型の調べ方<a class="headerlink" href="#データ型の調べ方" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ある変数のデータ型がよくわからない場合は、<code class="docutils literal"><span class="pre">type()</span></code>
+という関数を使うとよいでしょう。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>a = 1
+type(a)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[27]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>int
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>b = [1,3]
+type(b)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[28]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>list
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="四則演算">
+<h3>四則演算<a class="headerlink" href="#四則演算" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Python では四則演算、累乗は次のように行います。</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>加算：+
+減算：-
+乗算：*
+除算：/
+累乗：**
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="メソッド-(Method)">
+<h2>メソッド (Method)<a class="headerlink" href="#メソッド-(Method)" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>各データ型には、固有の関数が用意されています。これをメソッドといいます。
+文字列型には例えば、次のようなメソッドが用意されています。</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>lower: 文字列を小文字にする
+upper: 文字列を大文字にする
+split: 文字列を指定した境界にしたがって、分割し、リストを作る
+</pre></div>
+</div>
+<p>リスト型には例えば、次のようなメソッドが用意されています。</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">append</span><span class="p">:</span> <span class="n">リストに要素を追加する</span>
+<span class="n">extend</span><span class="p">:</span> <span class="n">リストにリストを追加する</span>
+<span class="n">remove</span><span class="p">:</span> <span class="n">指定した値をリストから除外する</span>
+</pre></div>
+</div>
+<p>メソッドを使うには、<code class="docutils literal"><span class="pre">データ型.メソッド(引数)</span></code>
+とします。例を見てみましょう。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>JP = &#39;japan&#39;
+JP.upper()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[29]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>&#39;JAPAN&#39;
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>countries = &#39;japan,korea,america&#39;
+countries.split(&#39;,&#39;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[30]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>[&#39;japan&#39;, &#39;korea&#39;, &#39;america&#39;]
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>odd_num = [1,3,5]
+odd_num.remove(5)
+odd_num
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[31]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>[1, 3]
+</pre></div>
+</div>
+</div>
+<p>引数が必要でない場合も、<code class="docutils literal"><span class="pre">()</span></code>
+を忘れると、関数の戻り値ではなく関数が返ってきますので注意してください。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>JP.upper
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[32]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>&lt;function str.upper&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="モジュールのインポート">
+<h3>モジュールのインポート<a class="headerlink" href="#モジュールのインポート" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Python
+を起動したときにすでにいくつかのデータ型、関数を使うことができます（Built-in関数といいます）。
+R
+を使ったことがある人はおなじみかも知れませんが、使えるデータ型、関数を追加することができます。
+モジュールを追加するには、<code class="docutils literal"><span class="pre">import</span></code>
+を使います。まずは、時間に関する操作に役立つデータ型である、<code class="docutils literal"><span class="pre">datetime</span></code>
+を使えるようにしてみましょう。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>import datetime
+</pre></div>
+</div>
+</div>
+<p>無事追加できた場合には、特になにも結果がでません。存在しないモジュールを追加しようとした場合には、エラーが返ってきます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>import datetime_time
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-34-0da56c68cbcf&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span><span class="ansi-green-intense-fg ansi-bold">import</span> datetime_time
+
+<span class="ansi-red-intense-fg ansi-bold">ModuleNotFoundError</span>: No module named &#39;datetime_time&#39;
+</pre></div></div>
+</div>
+<p><code class="docutils literal"><span class="pre">datetime</span></code>
+モジュールには、様々なデータ関数が用意されています。モジュールから特定の関数のみを追加したい場合は、<code class="docutils literal"><span class="pre">from</span> <span class="pre">モジュール名</span> <span class="pre">import</span> <span class="pre">関数名</span></code>
+とします。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>from datetime import timedelta
+</pre></div>
+</div>
+</div>
+<p>追加したモジュールの関数を使いたい場合は、<code class="docutils literal"><span class="pre">モジュール名.関数名</span></code>
+で使用できます。 それでは、<code class="docutils literal"><span class="pre">datetime</span></code>
+型を作ってみましょう。<code class="docutils literal"><span class="pre">datetime</span></code> 型は
+<code class="docutils literal"><span class="pre">datetime(year,month,day,minute,second)</span></code> のように作成します（最後の 2
+つは省略可能です）。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>today = datetime.datetime(2017,9,11)
+</pre></div>
+</div>
+</div>
+<p>追加するモジュール名が長くて、いちいち打つのが面倒な場合、
+<code class="docutils literal"><span class="pre">import</span> <span class="pre">モジュール名</span> <span class="pre">as</span> <span class="pre">適当な名前</span></code>
+とすれば、指定した名前でモジュールを呼び出せます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>import datetime as dt
+dt.datetime(2017,9,11)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[37]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>datetime.datetime(2017, 9, 11, 0, 0)
+</pre></div>
+</div>
+</div>
+<p><strong>注意!</strong> <code class="docutils literal"><span class="pre">import</span> <span class="pre">モジュール名</span><span class="pre">as</span> <span class="pre">*</span></code>
+とするとモジュール名を省略できますが、他のモジュールも同じ名前の関数があった場合、名前の衝突が起こってしまい、予期せぬエラーが起こることがあります（これを名前空間が汚れると言ったりします）。
+<code class="docutils literal"><span class="pre">as</span> <span class="pre">*</span></code> を使うのはできるだけ避け、使う場合も 1
+つのモジュールに対してのみ使いましょう。</p>
+</div>
+</div>
+<div class="section" id="属性-(Attribute)">
+<h2>属性 (Attribute)<a class="headerlink" href="#属性-(Attribute)" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>あるデータ型を作成した場合、そのデータ型の基本的な情報を属性と呼びます。
+例えば、<code class="docutils literal"><span class="pre">datetime</span></code>型の属性は、<code class="docutils literal"><span class="pre">year,month,day,mitute,second</span></code>などです。
+属性を呼び出すには、<code class="docutils literal"><span class="pre">データ型.属性名</span></code>
+とします。他のメソッドと違うのは、属性を呼び出す場合には引数がいらないということです。つまり、<code class="docutils literal"><span class="pre">()</span></code>
+をつける必要がありません。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>today = datetime.datetime(2017,9,11)
+today.year
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[38]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>2017
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>today.month
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[39]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>9
+</pre></div>
+</div>
+</div>
+<p>これまでに、いくつかの基本的なデータ型を説明してきました。
+各データ型には様々な特徴があり、またそれぞれ固有の関数（メソッド）を持っています。
+くぎを打つ場合には金づちを使い、木を切る場合にはのこぎりを使います。
+同じように、使用目的によって、データ型を使い分けることが重要です。</p>
+</div>
+<div class="section" id="ループ文">
+<h2>ループ文<a class="headerlink" href="#ループ文" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>似たような操作を繰り返したい場合、例えば、1 から 10
+までの整数を順に出力したい場合などには、ループ文を使うとよいでしょう。Python
+では、 <code class="docutils literal"><span class="pre">for,</span> <span class="pre">while</span></code> がよく用いられます。1
+つずつその性質を見ていきましょう。</p>
+<div class="section" id="for">
+<h3>for<a class="headerlink" href="#for" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>for
+は、リストやタプルなどからその中の要素を逐次的に引き出す場合に使われます。
+例えば、次のようにします。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>for i in [1,2,3]:
+    print(i)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1
+2
+3
+</pre></div></div>
+</div>
+<p><code class="docutils literal"><span class="pre">print</span></code> はその名の通り、<code class="docutils literal"><span class="pre">()</span></code>
+内の値を出力したい場合に用いる関数です。 上の文では、<code class="docutils literal"><span class="pre">i</span></code> にリスト
+<code class="docutils literal"><span class="pre">[1,2,3]</span></code> の各要素が順に代入されていきます。 Python
+では、他のプログラミング言語と違い、<strong>インデント（字下げ）</strong>
+が意味を持ちます。
+ループや、関数、クラスの定義の際には、直下のインデントした文がループ文、関数、クラスの定義の文になります。
+詳しく見てみましょう。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>j = 0
+k = 0
+for i in [1,2,3,4]:
+    j += i
+
+k += i
+j,k
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[41]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>(10, 4)
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal"><span class="pre">j=+1</span></code> は、<code class="docutils literal"><span class="pre">j</span> <span class="pre">=</span> <span class="pre">j</span> <span class="pre">+</span> <span class="pre">i</span></code> と同値です。
+インデントしている文はループが実行されていますが、その下のインデントがされていない文はループが実行されていません。したがって、<code class="docutils literal"><span class="pre">j</span></code>
+は <code class="docutils literal"><span class="pre">1+2+3+4</span></code> の値が格納されますが、<code class="docutils literal"><span class="pre">k</span></code> はループの最後に <code class="docutils literal"><span class="pre">i</span></code>
+がとる値、<code class="docutils literal"><span class="pre">4</span></code> のみが格納されます。</p>
+<p>また、特に理由のないインデントは、エラーになります。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>1
+    &#39;a&#39;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-cyan-intense-fg ansi-bold">  File </span><span class="ansi-green-intense-fg ansi-bold">&#34;&lt;ipython-input-42-830ffeb871ce&gt;&#34;</span><span class="ansi-cyan-intense-fg ansi-bold">, line </span><span class="ansi-green-intense-fg ansi-bold">2</span>
+<span class="ansi-yellow-intense-fg ansi-bold">    &#39;a&#39;</span>
+<span class="ansi-white-intense-fg ansi-bold">    ^</span>
+<span class="ansi-red-intense-fg ansi-bold">IndentationError</span><span class="ansi-red-intense-fg ansi-bold">:</span> unexpected indent
+
+</pre></div></div>
+</div>
+<p><code class="docutils literal"><span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">[1,2,3]</span></code> は <code class="docutils literal"><span class="pre">range</span></code> 関数を使って、 <code class="docutils literal"><span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">range(1,4)</span></code>
+でも実行できます。 <code class="docutils literal"><span class="pre">range</span></code> はイテレータを返す関数で、<code class="docutils literal"><span class="pre">range(b)</span></code>
+とした場合、<code class="docutils literal"><span class="pre">0</span></code> から <code class="docutils literal"><span class="pre">b-1</span></code> までの値を順に返します。 <code class="docutils literal"><span class="pre">range(a,b)</span></code>
+のときは、<code class="docutils literal"><span class="pre">a</span></code> から <code class="docutils literal"><span class="pre">b-1</span></code> までです。
+イテレータとは、ループ文を使ったときに、逐次的に要素を返すオブジェクトです。</p>
+</div>
+<div class="section" id="while">
+<h3>while<a class="headerlink" href="#while" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">while</span></code>
+は指定した条件式が真の場合にループ文を実行し、条件式が偽になるとループをやめます。例えば、次のようにします。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>i = 0
+while i &lt; 5:
+    print(i)
+    i += 1
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+1
+2
+3
+4
+</pre></div></div>
+</div>
+<p>上の文は <code class="docutils literal"><span class="pre">i</span></code> が 5
+より小さい場合という条件式が真の場合にループ文を実行するということです。
+また、ループ文の最後に <code class="docutils literal"><span class="pre">i</span></code> の値に 1 を足しています。<code class="docutils literal"><span class="pre">while</span></code>
+は終わらないループを繰り返すことにもなりかねないので、注意しましょう。ループが終わらない場合は、
+■ を押すか、<code class="docutils literal"><span class="pre">Ctrl+C</span></code> でコードの実行を中止しましょう。</p>
+</div>
+</div>
+<div class="section" id="関数">
+<h2>関数<a class="headerlink" href="#関数" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>いくつかの操作をひとまとめにして、再利用したい場合には、関数を使うとよいでしょう。
+関数は次のように <code class="docutils literal"><span class="pre">def</span></code> を使って定義します。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [44]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>def return_2():
+    x = 2
+    return x
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [45]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>return_2()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[45]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>2
+</pre></div>
+</div>
+</div>
+<p>ループ文の場合と同じで、関数の定義もインデントして書きます。
+引数をもつ関数を定義するには引数を <code class="docutils literal"><span class="pre">()</span></code> 内で指定します。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>def multiple_2(x):
+    x2 = x*2
+    return x2
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [47]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>multiple_2(3)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[47]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>6
+</pre></div>
+</div>
+</div>
+<p>関数によって返される戻り値は <code class="docutils literal"><span class="pre">return</span></code> で指定します。 <code class="docutils literal"><span class="pre">return</span></code>
+の下は実行されないので、注意してください。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [48]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>def upper_return():
+    x = 2
+    print(&#39;here&#39;)
+    return x
+
+upper_return()
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+here
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[48]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>2
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [49]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>def under_return():
+    x = 2
+    return x
+    print(&#39;here&#39;)
+
+under_return()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[49]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>2
+</pre></div>
+</div>
+</div>
+<p>引数の数を任意にすることも可能です。 引数に <code class="docutils literal"><span class="pre">*name</span></code>
+を入れると、指定した数以上の引数は <code class="docutils literal"><span class="pre">name</span></code> にタプルとして格納されます。
+また、引数に <code class="docutils literal"><span class="pre">**name</span></code> を入れると、指定した数以上の <code class="docutils literal"><span class="pre">key=value</span></code>
+という引数は <code class="docutils literal"><span class="pre">name</span></code> に辞書として格納されます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [50]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>def multi_arg(*args):
+    print(type(args))
+
+multi_arg(1,2,3)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;class &#39;tuple&#39;&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [51]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>def multi_params(**params):
+    return params
+
+multi_params(a=1, b=2)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[51]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>{&#39;a&#39;: 1, &#39;b&#39;: 2}
+</pre></div>
+</div>
+</div>
+<div class="section" id="ローカル変数">
+<h3>ローカル変数<a class="headerlink" href="#ローカル変数" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>関数の定義で重要なのは、ローカル変数という概念です。ちなみに、逆はグローバル変数といいます。
+ローカル変数は、プログラムの一部分でのみ参照可能な変数です。例えば、関数内で定義した変数は関数内でのみ参照可能であり、関数の外では参照することができません。
+実際に見てみましょう。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [52]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>x = 3
+def local_x():
+    x = 6
+    return 1
+
+local_x()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[52]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>1
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [53]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>x
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[53]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>3
+</pre></div>
+</div>
+</div>
+<p>関数の外で <code class="docutils literal"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">3</span></code> と定義した後に、関数内で <code class="docutils literal"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">6</span></code>
+と定義していますね。 しかし、関数を呼び出した後に、<code class="docutils literal"><span class="pre">x</span></code>
+を参照しても、値は変わっていません。 なぜなら、関数内の <code class="docutils literal"><span class="pre">x</span></code>
+はローカル変数なので、<code class="docutils literal"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">6</span></code> というのは関数内でのみ有効だからです。
+実際に、関数内では <code class="docutils literal"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">6</span></code> となっているか、<code class="docutils literal"><span class="pre">print</span></code>
+で見てみましょう。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [54]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>x = 3
+def print_local():
+    x = 6
+    print(x)
+
+print_local()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+6
+</pre></div></div>
+</div>
+<p>ちゃんと、関数内では <code class="docutils literal"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">6</span></code> となっていることが確認できました。</p>
+<p>さて、こうしたローカル変数があると何が嬉しいのでしょうか。
+一つは、関数の影響を最小限にとどめられるということです。
+例えば、関数の中と外で <code class="docutils literal"><span class="pre">x</span></code> という変数を定義していて、
+関数を呼び出すたびに <code class="docutils literal"><span class="pre">x</span></code> の値が書き換わっていたらどうでしょうか。
+変数を定義するたびに、関数の中もチェックして、変数名が被っていないかを考えなくてはいけません。
+ローカル変数はそういったことを防ぐ役割を果たすのです。</p>
+</div>
+</div>
+<div class="section" id="無名関数">
+<h2>無名関数<a class="headerlink" href="#無名関数" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">def</span></code>
+とは違い、簡単にかける無名関数というものあります。<code class="docutils literal"><span class="pre">lambda</span> <span class="pre">x:</span> <span class="pre">function</span></code>
+とすることで無名関数を作成できます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [55]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>lambda x: x*2
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[55]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>&lt;function __main__.&lt;lambda&gt;&gt;
+</pre></div>
+</div>
+</div>
+<p>無名関数は <code class="docutils literal"><span class="pre">map</span></code>
+というリストの各要素に関数を適応する関数と組み合わせると便利です。
+例えば、次の例はリストの各要素を 2 倍にします。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [56]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>lambda_list = [1,2,3,4]
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [57]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>list(map(lambda x: x*2, lambda_list))
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[57]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>[2, 4, 6, 8]
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal"><span class="pre">filter</span></code> は条件式を満たす要素を返します。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [58]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>list(filter(lambda x: x&gt;2,lambda_list))
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[58]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>[3, 4]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Data_Analysis.html" class="btn btn-neutral float-right" title="Python を使ったデータの整理、分析" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Python事始め.html" class="btn btn-neutral" title="Python 事始め" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Takahiro Miura.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

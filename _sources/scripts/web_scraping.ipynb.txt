@@ -1,0 +1,244 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Web スクレイピング入門"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Python の使い方も学び、Web ページの構造も理解したので、\n",
+    "早速 Web スクレイピングをしていきましょう。\n",
+    "\n",
+    "まず、このページでは手始めに [Yahoo news のトピックス一覧](https://news.yahoo.co.jp/topics) から、各記事のタイトルを収集することを目指します。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "![a]()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'C:\\\\Users\\\\takam\\\\Dropbox\\\\sphinx\\\\econometrics_for_python\\\\scripts'"
+      ]
+     },
+     "execution_count": 22,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "%pwd"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "import requests\n",
+    "from bs4 import BeautifulSoup"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "200"
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "url = \"https://news.yahoo.co.jp/topics\"\n",
+    "response = requests.get(url)\n",
+    "response.status_code"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "bs = BeautifulSoup(response.content,\"lxml\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[<a id=\"yjPagetop\" name=\"yjPagetop\"></a>,\n",
+       " <a href=\"#yjContentsStart\"><img alt=\"このページの本文へ\" height=\"1\" src=\"https://s.yimg.jp/yui/jp/tmpl/1.1.0/audionav.gif\" width=\"1\"/></a>,\n",
+       " <a href=\"https://news.yahoo.co.jp/search/advanced\">条件指定</a>,\n",
+       " <a href=\"https://news.yahoo.co.jp/profile/login\" onmousedown=\"this.href='https://news.yahoo.co.jp/profile/login'\"><span class=\"myThumb\"><img height=\"24\" src=\"https://s.yimg.jp/images/bloom/v201212/anonymous_24.png\" width=\"24\"/></span></a>,\n",
+       " <a href=\"https://news.yahoo.co.jp/profile/login\" onmousedown=\"this.href='https://news.yahoo.co.jp/profile/login'\"><span class=\"myName\">ユーザーページ</span></a>]"
+      ]
+     },
+     "execution_count": 14,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "bs.select('a')[:5]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[<ul class=\"fl\">\n",
+       " <li class=\"ttl\"><a href=\"https://news.yahoo.co.jp/hl?c=dom\" onmousedown=\"this.href='https://news.yahoo.co.jp/hl?c=dom'\">国内</a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253404\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253404'\">秋田県で震度5強 津波なし<span class=\"icPhoto\">写真</span><span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253366\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253366'\">前原氏 維新と連携の意向<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253344\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253344'\">福島第1 作業員が内部被ばく</a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253391\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253391'\">猪木議員 北朝鮮前外相と面会<span class=\"icPhoto\">写真</span><span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253350\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253350'\">泉田氏 新潟5区自民で出馬へ</a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253394\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253394'\">摂食障害 チーム医療の刑務所<span class=\"icPhoto\">写真</span><span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253377\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253377'\">加熱式たばこ 増税案の背景<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253340\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253340'\">壊れた太陽光パネル 感電恐れ</a></li>\n",
+       " <li class=\"ft\"><a href=\"https://news.yahoo.co.jp/list/?c=domestic\" onmousedown=\"this.href='https://news.yahoo.co.jp/list/?c=domestic'\">もっと見る</a></li>\n",
+       " </ul>, <ul class=\"fl\">\n",
+       " <li class=\"ttl\"><a href=\"https://news.yahoo.co.jp/hl?c=bus\" onmousedown=\"this.href='https://news.yahoo.co.jp/hl?c=bus'\">経済</a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253392\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253392'\">ツアー料金弁済 返金を増額へ<span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253372\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253372'\">試験中断のMRJ 米で飛行再開<span class=\"icPhoto\">写真</span><span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253370\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253370'\">カードローン残高 毎月公表へ<span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253337\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253337'\">経常黒字2.3兆円 7月では最大<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253314\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253314'\">「シェア」課税漏れ 対策検討<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253310\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253310'\">コメ輸出 19年に10倍の目標</a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253363\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253363'\">神戸-沖縄結ぶフェリー運休へ<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253356\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253356'\">SR400終了 次期モデル明言<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li class=\"ft\"><a href=\"https://news.yahoo.co.jp/list/?c=economy\" onmousedown=\"this.href='https://news.yahoo.co.jp/list/?c=economy'\">もっと見る</a></li>\n",
+       " </ul>, <ul class=\"fl\">\n",
+       " <li class=\"ttl\"><a href=\"https://news.yahoo.co.jp/hl?c=c_spo\" onmousedown=\"this.href='https://news.yahoo.co.jp/hl?c=c_spo'\">スポーツ</a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253401\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253401'\">女子バレー 強豪ブラジル撃破<span class=\"icPhoto\">写真</span><span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253396\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253396'\">3横綱休場 懸賞200本取り下げ<span class=\"icPhoto\">写真</span><span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253393\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253393'\">大谷 1年ぶりのマルチ本塁打<span class=\"icPhoto\">写真</span><span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253381\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253381'\">阪神・鳥谷 2000安打を達成<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253382\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253382'\">中国テコンドー段証発行 物議</a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253374\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253374'\">スノボW杯 笑顔弾ける15歳V<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253362\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253362'\">一度は諦め 元大学職員の十両<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253361\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253361'\">ジェフ千葉 消えた脂身と白米<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li class=\"ft\"><a href=\"https://news.yahoo.co.jp/list/?c=sports\" onmousedown=\"this.href='https://news.yahoo.co.jp/list/?c=sports'\">もっと見る</a></li>\n",
+       " </ul>, <ul class=\"fl\">\n",
+       " <li class=\"ttl\"><a href=\"https://news.yahoo.co.jp/hl?c=c_sci\" onmousedown=\"this.href='https://news.yahoo.co.jp/hl?c=c_sci'\">科学</a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253385\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253385'\">地磁気の乱れ ピーク過ぎる<span class=\"icPhoto\">写真</span><span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253345\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253345'\">太陽フレア 北海道オーロラも<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253332\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253332'\">太陽フレア 粒子が地球に到達<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253406\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253406'\">オプジーボ 胃がんにも拡大<span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253375\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253375'\">「白頭山」調査 停滞の恐れ<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253386\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253386'\">リカオン くしゃみで投票?<span class=\"icPhoto\">写真</span><span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253360\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253360'\">空気不要 近未来型タイヤ開発<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253327\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253327'\">新種トリュフ 熱帯域で初発見<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li class=\"ft\"><a href=\"https://news.yahoo.co.jp/list/?c=science\" onmousedown=\"this.href='https://news.yahoo.co.jp/list/?c=science'\">もっと見る</a></li>\n",
+       " </ul>, <ul class=\"fr\">\n",
+       " <li class=\"ttl\"><a href=\"https://news.yahoo.co.jp/hl?c=c_int\" onmousedown=\"this.href='https://news.yahoo.co.jp/hl?c=c_int'\">国際</a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253398\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253398'\">メキシコM8.1多数生き埋めか<span class=\"icPhoto\">写真</span><span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253371\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253371'\">北 太陽フレアで発射断念も<span class=\"icPhoto\">写真</span><span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253395\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253395'\">微量の放射性物質を検出 韓国<span class=\"icPhoto\">写真</span><span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253335\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253335'\">米空母が横須賀出港 北けん制<span class=\"icVideo\">動画</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253311\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253311'\">メキシコ 北朝鮮大使を追放へ</a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253357\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253357'\">相次ぐ米艦衝突 訓練不足横行<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253369\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253369'\">ハリケーン避難で大渋滞 米<span class=\"icVideo\">動画</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253312\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253312'\">スペイン 投票巡り緊張高まる<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li class=\"ft\"><a href=\"https://news.yahoo.co.jp/list/?c=world\" onmousedown=\"this.href='https://news.yahoo.co.jp/list/?c=world'\">もっと見る</a></li>\n",
+       " </ul>, <ul class=\"fr\">\n",
+       " <li class=\"ttl\"><a href=\"https://news.yahoo.co.jp/hl?c=c_ent\" onmousedown=\"this.href='https://news.yahoo.co.jp/hl?c=c_ent'\">エンタメ</a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253408\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253408'\">元SMAP3人のページ消える<span class=\"icPhoto\">写真</span><span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253379\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253379'\">田中聖が謝罪と決意 歌いたい<span class=\"icPhoto\">写真</span><span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253373\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253373'\">つながり大事に 愛される出川<span class=\"icPhoto\">写真</span><span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253354\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253354'\">蝶野 今年はもうビンタしない<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253343\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253343'\">朝ドラ 桃李はなぜ子役使わず<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253330\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253330'\">ナイトスクープ秘書 妊娠報告<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253323\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253323'\">aiko 左足骨折隠しツアー完遂<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253307\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253307'\">北斗の拳 ザコ主役舞台に美学<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li class=\"ft\"><a href=\"https://news.yahoo.co.jp/list/?c=entertainment\" onmousedown=\"this.href='https://news.yahoo.co.jp/list/?c=entertainment'\">もっと見る</a></li>\n",
+       " </ul>, <ul class=\"fr\">\n",
+       " <li class=\"ttl\"><a href=\"https://news.yahoo.co.jp/hl?c=c_sci\" onmousedown=\"this.href='https://news.yahoo.co.jp/hl?c=c_sci'\">IT</a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253383\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253383'\">モンストに480円の月額コース<span class=\"icPhoto\">写真</span><span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253358\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253358'\">DMMもシェアサイクル参入へ<span class=\"icPhoto\">写真</span><span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253348\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253348'\">SNS人気写真家 実は存在せず<span class=\"icPhoto\">写真</span><span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253341\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253341'\">足が臭いと気絶 犬型ロボ開発<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253321\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253321'\">1.4億人のデータ流出か 米国<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253306\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253306'\">新iPhone 生産1カ月遅れか<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253246\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253246'\">外国人向け防災HP お粗末翻訳<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253242\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253242'\">消えるトレーダー AI活用の今<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li class=\"ft\"><a href=\"https://news.yahoo.co.jp/list/?c=computer\" onmousedown=\"this.href='https://news.yahoo.co.jp/list/?c=computer'\">もっと見る</a></li>\n",
+       " </ul>, <ul class=\"fr\">\n",
+       " <li class=\"ttl\"><a href=\"https://news.yahoo.co.jp/hl?c=loc\" onmousedown=\"this.href='https://news.yahoo.co.jp/hl?c=loc'\">地域</a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253388\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253388'\">国際手配の男 日本で人殺した<span class=\"icVideo\">動画</span><span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253368\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253368'\">水俣病補償 2審破棄し不支給</a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253364\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253364'\">御嶽山 遺族と生還者の歩み<span class=\"icVideo\">動画</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253378\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253378'\">「白い粉動画」投稿者を逮捕<span class=\"icPhoto\">写真</span><span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253349\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253349'\">強姦 元NHK記者側が無罪主張</a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253400\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253400'\">強豪剣道部 いじめた3人退学<span class=\"icVideo\">動画</span><span class=\"icNew\">new</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253359\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253359'\">小学生取材パンフ好評 喜界島<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li><a href=\"https://news.yahoo.co.jp/pickup/6253336\" onmousedown=\"this.href='https://news.yahoo.co.jp/pickup/6253336'\">甲子園への期待 人口減止める<span class=\"icPhoto\">写真</span></a></li>\n",
+       " <li class=\"ft\"><a href=\"https://news.yahoo.co.jp/list/?c=local\" onmousedown=\"this.href='https://news.yahoo.co.jp/list/?c=local'\">もっと見る</a></li>\n",
+       " </ul>]"
+      ]
+     },
+     "execution_count": 20,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "bs.select('.fl, .fr')"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.1"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

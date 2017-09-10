@@ -1,0 +1,156 @@
+
+Scrapy 入門
+=================
+
+Scrapy
+---------------
+Web スクレイピングをする際に、リンクを辿る Web クローリングを伴う場合などには、Web スクレイピングのフレームワーク、``Scrapy`` を使うと便利です。
+コマンドプロンプトから Scrapy をインストールしましょう。
+この例では、`Yahoo news のトピックス <https://news.yahoo.co.jp>`_ から、各記事のリンクを辿り、記事のタイトルと内容の要約を抽出することを目的とします。
+
+.. code-block:: none
+
+  conda install -c conda-forge scrapy
+
+適当なフォルダで次のコマンドを実行すると、``yahoo_news`` というフォルダが作成されます。
+
+.. code-block:: none
+
+   scrapy startproject yahoo_news
+
+まず、`settings.py` というファイルを開き、適当な場所に次の文を追加します。
+
+.. code-block:: python
+
+  DOWNLOAD_DELAY = 1
+
+また、USER_AGENT の () 内を自分のサイトのアドレス、もしくはメールアドレスに書き換えます。
+
+.. code-block:: python
+
+   USER_AGENT = 'yahoo_news (+サイトのアドレスかメールアドレス)'
+
+``DOWNLOAD_DELAY`` はページのダウンロードの間隔を設定します。
+間隔が短すぎると、サーバーに負荷をかけてしまう恐れがあるので、1 秒以上にしましょう。
+
+``USER_AGENT`` はサーバーが連絡したい場合用に記載しておきます。
+
+``items.py`` は、Item を定義します。Item は Web サイトを処理する Spider が抜き出したデータを格納しておくオブジェクトです。
+次のように設定します。
+
+.. code-block:: python
+
+  class YahooNewsItem(scrapy.Item):
+      """
+      ニュースのタイトルと内容の要約を表す Item
+      """
+
+      title = scrapy.Field()
+      contents = scrapy.Field()
+
+Web サイトを処理する Spider を作成します。
+まず、作成したフォルダをカレントディレクトリに設定します。
+
+``genspider`` コマンドでヤフーニュースを起点とした news_topics という名の Spider が作成されます。
+
+.. code-block:: none
+
+  scrapy genspider news_topics news.yahoo.co.jp
+
+Spider でリンクを辿りたいのですが、トピックスのリンクはどういったパターンがあるでしょうか。
+``Scrapy Shell`` を使えばインタラクティブに要素を参照できます。
+
+.. code-block:: none
+
+  scrapy shell http://news.yahoo.co.jp
+
+としすると、Scrapy Shell が起動します。
+Scrapy では CSS セレクタを使えます。
+
+.. code-block:: none
+
+  response.css('.ttl a').extract()
+
+で指定した要素がリストで返されます。
+``extract_first`` とすると、最初の要素が返されます。
+
+.. code-block:: none
+
+  response.css('.ttl a').extract_first()
+
+URL は a 要素の href 属性に記載されているので、それを取ってきます。
+
+.. code-block:: none
+
+  response.css('.ttl a::attr("href")').extract()
+
+URLの最後は ``/pickup/適当な数字`` というパターンで書かれていることが分かりました。
+``news_topics.py`` にリンクのパターンを書いていきましょう。
+``CrawlSpider`` を使えば、スッキリ書くことができます。
+
+.. code-block:: python
+
+  from scrapy.spiders import CrawlSpider, Rule
+  from scrapy.linkextractors import LinkExtractor
+  from yahoo_news.items import YahooNewsItem
+
+  class NewCrawlSpider(CrawlSpider):
+      name = 'news_topics'
+      allowed_domains = ['news.yahoo.co.jp']
+      start_urls = ['http://news.yahoo.co.jp/']
+      rules = (
+          Rule(LinkExtractor(allow=r'/pickup/\d+$'), callback='parse_topics'),
+      )
+
+      def parse_topics(self, response):
+          """
+          トピックスのページからタイトルと本文を抜き出す
+          """
+          item = YahooNewsItem()
+          item['title'] = response.css('.newsTitle ::text').extract_first()
+          item['contents'] = response.css('.hbody').xpath('string()').extract_first()
+          yield item
+
+解説していきましょう。
+``allowed_domains`` はクロールの対象になるドメインのリストです。
+``start_urls`` はクロールの起点となる URL のリストです。
+
+rules ではクロールのルールを書いています。
+``LinkExtractor`` で条件に合った URL を抜き出しています。この条件には正規表現を用いることができます。 ``r'/pickup/\d+$'`` は、文字列が /pickup/任意の数字 で終わるという条件です。
+``Rule`` では 抜き出したリンクを辿ってから、``parse_topics`` という処理を行うことを指定しています。
+
+parse_topicsでは、まず ``YahooNewsItem`` という item を作ります。その後、``title`` にニュースのタイトル、``contents`` にニュースの内容の要約を格納しています。``yield`` で item を出力します。
+
+.. note::
+  ここでは説明しませんでしたが、CSS セレクタとは別に要素を指定する方法として XPath というものがあります。XPath は CSS セレクタよりも覚えにくいかもしれませんが、高機能です。
+  先程の文は XPath を使って item['contents'] を次のように書くとさらに良いです。
+
+  ``response.css('.hbody').xpath('string()').extract_first()``
+
+それでは、クロールを行ってみます。``-o`` オプションを付けることによって、指定した形式にデータを出力できます。
+
+.. code-block:: none
+
+  scrapy crawl news_topics -o news_topics.csv
+　
+上手くいったようですね。
+
+robots.txt
+------------
+最後に、クローリングをする際に見ておくべき、``robots.txt`` について説明していきます。
+Web サイトには robots.txt というファイルが置かれている場合があります。これは Web サイトが Web クローラーに対する指示が書かれています。
+基本的な内容を解説します。
+
+* User-Agent: 下記の指示の対象となるクローラーを指す
+* Disallow: クローリングをする禁止するパス
+* Allow: クローリングをする許可するパス
+* Sitemap: サイトマップの URL
+* Crawl-delay: クロールの間隔
+
+`Google が述べているように <https://support.google.com/webmasters/answer/6062608?hl=ja>`_ 、robots.txt はあくまで指示であり強制することはできません。
+しかし、良識的なクローラーならば、ちゃんと守りましょう。
+
+ちなみに、Scrapy では robots.txt に遵守するかどうかを settings.py の ``ROBOTSTXT_OBEY``
+で決められます。
+
+私は法律には詳しくないので、自己責任の上、Web クローリングを行ってください。

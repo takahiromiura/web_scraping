@@ -1,0 +1,816 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Web スクレイピング入門 &mdash; Python で行う Web Scraping  ドキュメント</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="genindex.html"/>
+        <link rel="search" title="検索" href="search.html"/>
+    <link rel="top" title="Python で行う Web Scraping  ドキュメント" href="index.html"/>
+        <link rel="next" title="動的 Web サイトのスクレイピング" href="Selenium.html"/>
+        <link rel="prev" title="Web サイトの構成要素" href="Webサイトの構成要素.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Python で行う Web Scraping
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Python事始め.html">Python 事始め</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Python_Tutorial.html">Python チュートリアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Data_Analysis.html">Python を使ったデータの整理、分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Webサイトの構成要素.html">Web サイトの構成要素</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Web スクレイピング入門</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requests">requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#BeautifulSoup">BeautifulSoup</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Selenium.html">動的 Web サイトのスクレイピング</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python で行う Web Scraping</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Web スクレイピング入門</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/web_scraping.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #303F9F;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #D84315;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 8ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    background: #f7f7f7;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.pngmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+/* nice headers on first paragraph of info/warning boxes */
+.admonition .first {
+    margin: -12px;
+    padding: 6px 12px;
+    margin-bottom: 12px;
+    color: #fff;
+    line-height: 1;
+    display: block;
+}
+.admonition.warning .first {
+    background: #f0b37e;
+}
+.admonition.note .first {
+    background: #6ab0de;
+}
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="Web-スクレイピング入門">
+<h1>Web スクレイピング入門<a class="headerlink" href="#Web-スクレイピング入門" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>Python の使い方も学び、Web ページの構造も理解したので、 早速 Web
+スクレイピングをしていきましょう。</p>
+<p>まず、このページでは手始めに <a class="reference external" href="https://news.yahoo.co.jp/topics">Yahoo news
+のトピックス一覧</a>
+から、各記事のタイトルを収集することを目指します。</p>
+<div class="section" id="requests">
+<h2>requests<a class="headerlink" href="#requests" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>まず、python を使って、Web ページのコンテンツをとってみましょう。
+これには、 <code class="docutils literal"><span class="pre">requests</span></code> というモジュールを使います。 python
+にも似たようなものがありますが、 <code class="docutils literal"><span class="pre">requests</span></code> の方が使いやすいです。
+コンテンツが欲しい Web ページの url について、 <code class="docutils literal"><span class="pre">requests.get(url)</span></code>
+とすると、Web サーバーに Web
+ページのコンテンツを送ってくれという要求をすることができます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>import requests
+url = &quot;https://news.yahoo.co.jp/topics&quot;
+response = requests.get(url)
+response.status_code
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[1]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>200
+</pre></div>
+</div>
+</div>
+<p>最後の行は、ステータスコードというものを表していてます。
+ステータスコードは Web
+サーバーへの要求が上手くいったかを判別することができるので、毎回チェックしておきましょう。</p>
+<p>200 は、Web サーバーの要求が無事成功したことを示しています。
+ステータスコードは 200
+以外にも、様々な値を返すので、やりながら学んでいけば良いでしょう。</p>
+</div>
+<div class="section" id="BeautifulSoup">
+<h2>BeautifulSoup<a class="headerlink" href="#BeautifulSoup" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>次に、Web ページのコンテンツからデータを取りやすいようにします。
+ここでは、<code class="docutils literal"><span class="pre">BeautifulSoup</span></code> を用います。<code class="docutils literal"><span class="pre">BeautifulSoup</span></code>
+は使い方がわかりやすいので、入門としては良いでしょう。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>from bs4 import BeautifulSoup
+bs = BeautifulSoup(response.content,&quot;lxml&quot;)
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal"><span class="pre">lxml</span></code> というのは、htmlのパーサーの一つです。BeautifulSoup には 4
+つほどのパーサーを使えますが、lxml
+は使いやすさと早さを兼ね備えているので、これを使います。</p>
+<p>HTML の章で解説しましたが、Web
+ページは様々な要素が入れ子になっています。
+したがって、自分の欲しい情報をとるには、その情報が置いてある要素を上手く指定することが大事です。
+要素を指定する方法は、CSS のところで解説しました。</p>
+<p>それでは、我々の欲しい情報は一体どこに位置しているのでしょうか？
+実は、Google Chrome や　Firefox
+などのモダンブラウザには、それを分かりやすくする機能が備わっています。
+Web ページを開いて、<code class="docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">I</span></code>
+を押すか、右クリックを押してから、検証（インスペクタ）を押してみましょう。</p>
+<p>画面が 2 分割され、左側に Web ページ、右側に html が表示されるでしょう。
+右側の左上のカーソルのマークをクリックしてから、左側の適当なところを押してみましょう。</p>
+<p>すると、そのテキストが html
+内のどこにあるかが、右側に表示されます。この機能を使って、欲しい情報はどこにあるのかを探っていきます。ここでは、トピックス一覧の内容が欲しいので、その内のどれかを押してみましょう。</p>
+<p>一覧の内容は全てリンクが張られているので、 <code class="docutils literal"><span class="pre">a</span></code>
+要素に含まれていることがわかりました。</p>
+<div class="figure" id="id1">
+<img alt="a" src="_images/inspect_a.png" />
+<p class="caption"><span class="caption-text">a</span></p>
+</div>
+<p><code class="docutils literal"><span class="pre">BeautifulSoup</span></code> は <code class="docutils literal"><span class="pre">select</span></code> で CSS セレクターを使うことができます。
+下の例では <code class="docutils literal"><span class="pre">a</span></code> 要素を取ってきています。 <code class="docutils literal"><span class="pre">select</span></code> は CSS
+セレクターで指定した要素をタグごとにリストに含めます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>bs.select(&#39;a&#39;)[0]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[3]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>&lt;a id=&quot;yjPagetop&quot; name=&quot;yjPagetop&quot;&gt;&lt;/a&gt;
+</pre></div>
+</div>
+</div>
+<p>最初の要素しか表示していないのは、<code class="docutils literal"><span class="pre">a</span></code>
+要素に当てはまるのが多すぎるからです！ Web
+ページは多くのところでリンクを貼っているので、<code class="docutils literal"><span class="pre">a</span></code>
+要素だと制限が緩すぎます。</p>
+<p>別の方法を考えましょう。各トピックの全体を検証してみると、トピック毎に
+<code class="docutils literal"><span class="pre">ul</span></code> 要素を使ってリストにしていることがわかります。それでは、<code class="docutils literal"><span class="pre">ul</span></code>
+要素を指定してみましょう。</p>
+<div class="figure" id="id2">
+<img alt="ul" src="_images/inspect_ul.png" />
+<p class="caption"><span class="caption-text">ul</span></p>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span># 表示は省略
+# bs.select(&#39;ul&#39;)
+</pre></div>
+</div>
+</div>
+<p>先程よりはましですが、まだ余計なものが残っています。 よく見ると、この
+<code class="docutils literal"><span class="pre">ul</span></code> 要素には <code class="docutils literal"><span class="pre">fl</span></code>
+というクラス名が割り当てられています。また、右に位置するトピックスの
+<code class="docutils literal"><span class="pre">ul</span></code> 要素には <code class="docutils literal"><span class="pre">fr</span></code> というクラス名が割り当てられています。この 2
+つのクラス名を指定してみましょう。 <code class="docutils literal"><span class="pre">.fl,</span> <span class="pre">.fr</span></code>
+とすることで複数の要素を指定することができます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>topics = bs.select(&#39;.fl, .fr&#39;)
+topics[0]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[5]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>&lt;ul class=&quot;fl&quot;&gt;
+&lt;li class=&quot;ttl&quot;&gt;&lt;a href=&quot;https://news.yahoo.co.jp/hl?c=dom&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/hl?c=dom&#39;&quot;&gt;国内&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253447&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253447&#39;&quot;&gt;防衛相 北のEMP兵器に否定的&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253442&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253442&#39;&quot;&gt;秋田県で震度4 津波心配なし&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253427&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253427&#39;&quot;&gt;日米 北への圧力強化を最優先&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253434&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253434&#39;&quot;&gt;子の引き渡し 拒否なら制裁金&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253423&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253423&#39;&quot;&gt;残業規制・高プロ 法案一本化&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253426&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253426&#39;&quot;&gt;民進の5人 来週にも離党へ&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253435&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253435&#39;&quot;&gt;老後奪われる?祖父母の孫疲れ&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253436&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253436&#39;&quot;&gt;介護で半生失う 老後のリスク&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;ft&quot;&gt;&lt;a href=&quot;https://news.yahoo.co.jp/list/?c=domestic&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/list/?c=domestic&#39;&quot;&gt;もっと見る&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</pre></div>
+</div>
+</div>
+<p>上手くいきました！各トピックがリストの各要素に入ってます。
+それでは、ここからトピック毎に記事名を格納していきましょう。 各 <code class="docutils literal"><span class="pre">li</span></code>
+要素には、トピックのタイトル、記事名が入っています。</p>
+<p>リストの各要素をさらに <code class="docutils literal"><span class="pre">li</span></code>
+要素毎に分けます。要素ごとに分けたら、<code class="docutils literal"><span class="pre">text</span></code>
+メソッドを使って、要素の内容を取り出します。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>topics[0].select(&#39;li&#39;)[0].text
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[6]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>&#39;国内&#39;
+</pre></div>
+</div>
+</div>
+<p>この作業をループ化して、<code class="docutils literal"><span class="pre">dict</span> <span class="pre">=</span> <span class="pre">{トピックのタイトル:[記事A,記事B]}</span></code>
+というように、辞書型にしていきます。 <code class="docutils literal"><span class="pre">li</span></code>
+要素の最初の要素はトピックのタイトルなので、これをキーにします。
+また、最後の要素は記事のタイトルではないので、これは含みません。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>news_topics = {}
+for news in topics:
+    topic = news.select(&#39;li&#39;)[0].text
+    news_topics[topic] = [news_topic.text for news_topic in news.select(&#39;li&#39;)[1:-2]]
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>news_topics[&#39;国内&#39;]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[8]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>[&#39;防衛相 北のEMP兵器に否定的写真new&#39;,
+ &#39;秋田県で震度4 津波心配なし写真new&#39;,
+ &#39;日米 北への圧力強化を最優先写真&#39;,
+ &#39;子の引き渡し 拒否なら制裁金写真&#39;,
+ &#39;残業規制・高プロ 法案一本化写真&#39;,
+ &#39;民進の5人 来週にも離党へ写真&#39;,
+ &#39;老後奪われる?祖父母の孫疲れ写真new&#39;]
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal"><span class="pre">[news_topic.text</span> <span class="pre">for</span> <span class="pre">news_topic</span> <span class="pre">in</span> <span class="pre">news.select('li')[1:-2]]</span></code>
+はリスト内包表記というものです。</p>
+<p>ここでは、<code class="docutils literal"><span class="pre">li</span></code> 要素の 1 番目から最後の 1
+つ前までの要素、<code class="docutils literal"><span class="pre">news.select('li')[1:-2]</span></code> を順に <code class="docutils literal"><span class="pre">news_topic</span></code>
+格納し、 その要素の内容を <code class="docutils literal"><span class="pre">news_topic.text</span></code>
+で取り出し、リストに入れていく処理をしています。</p>
+<p>ちなみに、この処理は次と同じです。</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">news_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">news_topic</span> <span class="ow">in</span> <span class="n">news</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]:</span>
+    <span class="n">news_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">news_topic</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>リスト内包表記は、普通にループ文を書くよりもスッキリとして書け、また早く処理することができます。</p>
+<p>せっかくなので、pandas の DataFrame に変換しましょう。 dict から
+DataFrame にするには、<code class="docutils literal"><span class="pre">from_dict</span></code> を使います。</p>
+<p>また、写真、動画、new という文字は不要なので、pandas の <code class="docutils literal"><span class="pre">str.replace</span></code>
+を使って除去します。 <code class="docutils literal"><span class="pre">str</span></code> は DataFrame ではなく、Series
+のメソッドなので、<code class="docutils literal"><span class="pre">apply</span></code> を使って各列に適応させていきます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>import pandas as pd
+topics_dt = pd.DataFrame.from_dict(news_topics)
+topics_dt.apply( lambda x: x.str.replace(r&#39;(new|写真|動画)&#39;,&#39;&#39;))
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>IT</th>
+      <th>エンタメ</th>
+      <th>スポーツ</th>
+      <th>国内</th>
+      <th>国際</th>
+      <th>地域</th>
+      <th>科学</th>
+      <th>経済</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>電子書籍読み感想文 なぜNG</td>
+      <td>with Bダイキ 父に今も怒られ</td>
+      <td>ダル MLB史最速1000奪三振</td>
+      <td>防衛相 北のEMP兵器に否定的</td>
+      <td>メキシコ死者61人 まるで爆撃</td>
+      <td>威嚇発砲され逃走の男発見か</td>
+      <td>山形城 特殊な「土塀」初発見</td>
+      <td>民泊など シェアエコ課税強化</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>モンストに480円の月額コース</td>
+      <td>27時間TV 生放送しない理由</td>
+      <td>イチロー 通算2500単打に到達</td>
+      <td>秋田県で震度4 津波心配なし</td>
+      <td>北が「核強国」強調 米批判も</td>
+      <td>屋内「禁煙」都が条例制定へ</td>
+      <td>阿修羅像 元は穏やかな表情?</td>
+      <td>北情勢緊迫 日銀打つ手なし</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>DMMもシェアサイクル参入へ</td>
+      <td>竹内涼真 視聴率王子と称賛</td>
+      <td>巨人ギャレットが帰国へ</td>
+      <td>日米 北への圧力強化を最優先</td>
+      <td>微量の放射性物質を検出 韓国</td>
+      <td>青森県警の警視 女性触り懲戒</td>
+      <td>地磁気の乱れ ピーク過ぎる</td>
+      <td>ツアー料金弁済 返金を増額へ</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>SNS人気家 実は存在せず</td>
+      <td>元SMAP3人今後は? 新仕事も</td>
+      <td>鳥谷2000安打 大不振乗り越え</td>
+      <td>子の引き渡し 拒否なら制裁金</td>
+      <td>米空母が横須賀出港 北けん制</td>
+      <td>ドンキで窃盗 約900万円被害</td>
+      <td>太陽フレア 北海道オーロラも</td>
+      <td>試験中断のMRJ 米で飛行再開</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>足が臭いと気絶 犬型ロボ開発</td>
+      <td>退所3人と中居 1年後に合流か</td>
+      <td>ガンバ新監督 セレーゾ氏浮上</td>
+      <td>残業規制・高プロ 法案一本化</td>
+      <td>最強ハリケーン週末に米直撃</td>
+      <td>だまされたふり逆手の新手口</td>
+      <td>オプジーボ 胃がんにも拡大</td>
+      <td>プジョー 罰金6500億円か</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1.4億人のデータ流出か 米国</td>
+      <td>退所3人 ファンクラブ発足へ</td>
+      <td>女子バレー 強豪ブラジル撃破</td>
+      <td>民進の5人 来週にも離党へ</td>
+      <td>ネズミ襲撃で225カ所けが 仏</td>
+      <td>新東名でバス火災 乗客避難</td>
+      <td>「白頭山」調査 停滞の恐れ</td>
+      <td>カードローン残高 毎月公表へ</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>新iPhone 生産1カ月遅れか</td>
+      <td>レディー・ガガ 活動休止表明</td>
+      <td>3横綱休場 懸賞200本取り下げ</td>
+      <td>老後奪われる?祖父母の孫疲れ</td>
+      <td>相次ぐ米艦衝突 訓練不足横行</td>
+      <td>鈴木貴子議員 第1子を出産</td>
+      <td>リカオン くしゃみで投票?</td>
+      <td>神戸-沖縄結ぶフェリー運休へ</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Selenium.html" class="btn btn-neutral float-right" title="動的 Web サイトのスクレイピング" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Webサイトの構成要素.html" class="btn btn-neutral" title="Web サイトの構成要素" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Takahiro Miura.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

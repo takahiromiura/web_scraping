@@ -1,0 +1,332 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Python による Web スクレイピングにようこそ！ &mdash; Python で行う Web Scraping  ドキュメント</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="genindex.html"/>
+        <link rel="search" title="検索" href="search.html"/>
+    <link rel="top" title="Python で行う Web Scraping  ドキュメント" href="#"/>
+        <link rel="next" title="Python 事始め" href="Python事始め.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> Python で行う Web Scraping
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Python事始め.html">Python 事始め</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Python_Tutorial.html">Python チュートリアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Data_Analysis.html">Python を使ったデータの整理、分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Webサイトの構成要素.html">Web サイトの構成要素</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_scraping.html">Web スクレイピング入門</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Selenium.html">動的 Web サイトのスクレイピング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Scrapy入門.html">Scrapy 入門</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Q&amp;A.html">Q &amp; A</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Python で行う Web Scraping</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Python による Web スクレイピングにようこそ！</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+/* nice headers on first paragraph of info/warning boxes */
+.admonition .first {
+    margin: -12px;
+    padding: 6px 12px;
+    margin-bottom: 12px;
+    color: #fff;
+    line-height: 1;
+    display: block;
+}
+.admonition.warning .first {
+    background: #f0b37e;
+}
+.admonition.note .first {
+    background: #6ab0de;
+}
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="python-web">
+<h1>Python による Web スクレイピングにようこそ！<a class="headerlink" href="#python-web" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>データ分析をするときにデータをどこから取ってきますか？</p>
+<p>Web から？その場合は、どうデータにしますか？
+手作業で？ 少々のデータなら、手作業でできるでしょうが、大規模なデータをとるには、このアプローチは時間か金銭のどちらかを犠牲にしなければならないでしょう。</p>
+<p>このドキュメントでは、Python で Web スクレイピング、Web クローリング、つまり、自動で Web からデータをとってくるという作業を行うための基本的な知識を書いてます。</p>
+<p>まず最初に、Python とは何かを学んでいきます。
+それから、Python の基礎的な文法を学んでいきます。
+Python の基礎を学んだら、Python でデータ分析、整理を行うための numpy, pandas について学んでいきます。</p>
+<p>Python でデータ分析をできるようになったら、Web ページを書くための言語 HTML について学んでいきます。その後に、Web ページの装飾を行うために使う CSS について学びます。CSS について学ぶことによって、Web ページ上で自分の欲しい情報をどのように取ってくるかがわかるようになります。</p>
+<p>Python と Web ページが一通りわかるようになったら、Web スクレイピングの方法に入っていきます。</p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Python事始め.html">Python 事始め</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Python事始め.html#id1">Pythonとは？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Python事始め.html#python-r">Python と R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Python事始め.html#id2">Python のインストール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Python事始め.html#id3">Python の起動</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Python事始め.html#id4">パッケージのインストール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Python事始め.html#ipython">IPython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Python事始め.html#jupyter-notebook">Jupyter Notebook</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Python_Tutorial.html">Python チュートリアル</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Python_Tutorial.html#変数">変数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Python_Tutorial.html#エラー">エラー</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Python_Tutorial.html#Python-の様々なデータ型">Python の様々なデータ型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Python_Tutorial.html#メソッド-(Method)">メソッド (Method)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Python_Tutorial.html#属性-(Attribute)">属性 (Attribute)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Python_Tutorial.html#ループ文">ループ文</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Python_Tutorial.html#関数">関数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Python_Tutorial.html#無名関数">無名関数</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Data_Analysis.html">Python を使ったデータの整理、分析</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Data_Analysis.html#Numpy">Numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Data_Analysis.html#Scipy">Scipy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Data_Analysis.html#Pandas">Pandas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Webサイトの構成要素.html">Web サイトの構成要素</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Webサイトの構成要素.html#html">HTML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Webサイトの構成要素.html#css">CSS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="web_scraping.html">Web スクレイピング入門</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="web_scraping.html#requests">requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web_scraping.html#BeautifulSoup">BeautifulSoup</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Selenium.html">動的 Web サイトのスクレイピング</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Selenium.html#Selenium">Selenium</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Scrapy入門.html">Scrapy 入門</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Scrapy入門.html#id1">Scrapy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Scrapy入門.html#robots-txt">robots.txt</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Q&amp;A.html">Q &amp; A</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Python事始め.html" class="btn btn-neutral float-right" title="Python 事始め" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Takahiro Miura.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+Q & A
+=============
+
+講習会の内容でリクエストがあったのですが、上手いこと内容に入れられなかったのでざっくりと記載しておきます。
+
+* Q1: Pythonスクリプトを実行した時に、表示されるメッセージを、ログファイルに残す
+* A1: Python には Logging の機能が実装されており、様々な条件が起こった時にログを残すことができます。例えば、Error とか Info とかです。詳しくは `このサイト <http://www.sejuku.net/blog/23149>`_ を参照してください。
+
+* Q2:ウェブサイトから圧縮ファイルをダウンロードし（ログインが必要な場合は、ログイン名とパスワード入力をスクリプトが実行されている途中で入力）、圧縮方式に合わせて解凍したい
+* A2(認証): Basic 認証のログインは requests モジュールにオプションを加えることによって可能です（ `該当ページ <http://requests-docs-ja.readthedocs.io/en/latest/user/authentication/>`_ ）。 JavaScript を使う場合は、Selenium で行ってください。
+* A2(ダウンロード): ファイルのダウンロードは Beautifulsoup と　requests を組み合わせると可能です（ `該当ページ <http://qiita.com/checkpoint/items/d9bcc63292d7f01c62d3>`_ ）。
+
+* A2(解凍): ファイルの圧縮は拡張子を調べて、拡張子に合わせて解凍をすればよいと思います。Python には zip ファイルを解凍するモジュールがあります。また、``rarfile`` というモジュールを使うと、rar ファイルも解凍できます（ `該当ページ <http://symfoware.blog68.fc2.com/blog-entry-908.html>`_ )。

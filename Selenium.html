@@ -1,0 +1,735 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>動的 Web サイトのスクレイピング &mdash; Python で行う Web Scraping  ドキュメント</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="genindex.html"/>
+        <link rel="search" title="検索" href="search.html"/>
+    <link rel="top" title="Python で行う Web Scraping  ドキュメント" href="index.html"/>
+        <link rel="prev" title="Web スクレイピング入門" href="web_scraping.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Python で行う Web Scraping
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Python事始め.html">Python 事始め</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Python_Tutorial.html">Python チュートリアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Data_Analysis.html">Python を使ったデータの整理、分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Webサイトの構成要素.html">Web サイトの構成要素</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_scraping.html">Web スクレイピング入門</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">動的 Web サイトのスクレイピング</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Selenium">Selenium</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python で行う Web Scraping</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>動的 Web サイトのスクレイピング</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Selenium.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #303F9F;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #D84315;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 8ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    background: #f7f7f7;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.pngmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+/* nice headers on first paragraph of info/warning boxes */
+.admonition .first {
+    margin: -12px;
+    padding: 6px 12px;
+    margin-bottom: 12px;
+    color: #fff;
+    line-height: 1;
+    display: block;
+}
+.admonition.warning .first {
+    background: #f0b37e;
+}
+.admonition.note .first {
+    background: #6ab0de;
+}
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="動的-Web-サイトのスクレイピング">
+<h1>動的 Web サイトのスクレイピング<a class="headerlink" href="#動的-Web-サイトのスクレイピング" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>Yahoo news
+のトピックス一覧から、記事のタイトルを抜き出すことができた次は、EDINET
+を例にとりましょう。</p>
+<p>EDINET で有価証券報告書を見れる会社の沿革が書いてある HTML
+文書を保存しようと思います。</p>
+<ol class="arabic simple">
+<li>まず下準備として、<a class="reference external" href="http://disclosure.edinet-fsa.go.jp/">EDINET</a>
+のサイトにアクセスします。</li>
+<li><code class="docutils literal"><span class="pre">書類検索</span></code> をクリックします。</li>
+<li>画面左の <code class="docutils literal"><span class="pre">全文検索</span></code> をクリックします。</li>
+<li>文字列に <code class="docutils literal"><span class="pre">沿革</span></code> と入力します。</li>
+<li>書類情報を指定するのところで、<code class="docutils literal"><span class="pre">書類種別を指定する</span></code>
+をクリックします。<code class="docutils literal"><span class="pre">有価証券報告書</span></code> にチェックをします。</li>
+<li><code class="docutils literal"><span class="pre">書類の目次範囲を指定する</span></code>
+をクリックし、大分類の最初の項を選択し、小分類の最初の項を選択します。</li>
+<li>検索をクリックします。</li>
+</ol>
+<p>新しいページが開いたら、そのページの URL をコピーします。 URL
+は次のようになるでしょう。</p>
+<p>ここが、今回のスタート地点です。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>url = &#39;https://disclosure.edinet-fsa.go.jp/E01EW/BLMainController.jsp?uji.verb=W1E63031Search&amp;uji.bean=ee.bean.W1E63030.EEW1E63031Bean&amp;PID=W1E63030&amp;TID=W1E63031&amp;SESSIONKEY=1505008790454&amp;stype=0&amp;dcdSelect=12001&amp;hcdSelect=01001&amp;ycdSelect=03001400&amp;tsbSdt=&amp;kbn=1&amp;lgKbn=2&amp;pkbn=0&amp;skbn=1&amp;dskb=&amp;askb=&amp;dflg=0&amp;iflg=0&amp;preId=1&amp;chr=%E6%B2%BF%E9%9D%A9&amp;hbn=true&amp;spf5=2&amp;otd=12001&amp;hcd=01001&amp;ycd=03001400&amp;sec=&amp;scc=&amp;snm=&amp;spf1=1&amp;spf2=1&amp;iec=&amp;icc=&amp;inm=&amp;spf3=1&amp;fdc=&amp;fnm=&amp;spf4=1&amp;cal=1&amp;era=H&amp;yer=&amp;mon=&amp;psr=1&amp;pid=4&#39;
+</pre></div>
+</div>
+</div>
+<div class="figure">
+<img alt="" src="_images/EDINET.png" />
+</div>
+<p>このページでは、有価証券報告書が企業別に並んでいます。 それでは、最初の
+<code class="docutils literal"><span class="pre">KISCO株式会社</span></code> の有価証券報告書をクリックしてみましょう。</p>
+<div class="figure">
+<img alt="" src="_images/EDINET_window.png" />
+</div>
+<p>小さなウインドウが新たに開きました。</p>
+<p>このサイトは、クリックするとページの一部分が開いたり、新しいウインドウが開いたりしています。
+これは、 <code class="docutils literal"><span class="pre">JavaScript</span></code>
+という言語によるものです。ユーザーがページをクリックするなどによって、ページの内容が変わるような
+Web サイトを <strong>動的 Web サイト</strong>
+と呼びます。一方、最初から全てのコンテンツがページに表示されているものは
+<strong>静的 Web サイト</strong> と呼びます。</p>
+<div class="section" id="Selenium">
+<h2>Selenium<a class="headerlink" href="#Selenium" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>動的 Web サイトをスクレイピングするには、<code class="docutils literal"><span class="pre">JavaScript</span></code>
+に対処しなければいけません。ここでは、 <code class="docutils literal"><span class="pre">Selenium</span></code>
+を使いましょう。Selenium
+は元は自動テスト用に作られたもので、ブラウザ上のコンテンツをクリックする、検索バーにキーを入力するなどを自動で行ってくれます。</p>
+<p>まず、Google Chrome
+のブラウザを自動で動かすドライバーを<a class="reference external" href="https://sites.google.com/a/chromium.org/chromedriver/downloads">ここから</a>ダウンロードします。ダウンロードしたら、参照しやすい場所に置いておきます。</p>
+<p>また、<code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">selenium</span></code> で selenium の python
+用モジュールをインストールしておいてください。</p>
+<p>ブラウザを立ち上げます。アラートが出る場合は、<code class="docutils literal"><span class="pre">続行</span></code>
+を押してください。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>from selenium import webdriver
+browser = webdriver.Chrome()
+</pre></div>
+</div>
+</div>
+<p>次の作業に移る前に、少し待ちましょう。
+すぐに次の作業に移ってしまうと、まだコンテンツが出ていないのに作業を行ってしまい、エラーが起こりやすくなります。<code class="docutils literal"><span class="pre">implicitly_wait</span></code>
+で指定した秒まで、要素が出るまで待ちます。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>browser.implicitly_wait(10)
+</pre></div>
+</div>
+</div>
+<p>先程の URL にアクセスします。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>browser.get(url)
+</pre></div>
+</div>
+</div>
+<p>サイトのタイトルが　<code class="docutils literal"><span class="pre">EDINET</span></code> であることを <code class="docutils literal"><span class="pre">assert</span></code>
+を使って確かめます。 違う場合はエラーが返ってきます。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>assert &#39;EDINET&#39; in browser.title
+</pre></div>
+</div>
+</div>
+<p>Selenium でも CSS
+セレクタが使えます。まずは、有価証券報告書のリンクをクリックします。
+有価証券報告書、企業名は sytle_pb_after というクラスの要素の中の a
+要素にあることがわかります。 <code class="docutils literal"><span class="pre">find_elements_by_css_selector</span></code>
+は指定した要素のリストを返します。</p>
+<div class="figure">
+<img alt="" src="_images/EDINET_report.png" />
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>links = browser.find_elements_by_css_selector(&#39;.table_border_1 &gt; a&#39;)
+</pre></div>
+</div>
+</div>
+<p>リストは、A 社の有価証券報告書、A 社の企業名、B 社の有価証券報告書、B
+社の企業名、... 、 という順番になっています。
+最初のリンクをクリックする前に、クリックする企業名を保存しておきます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>company_name = links[1].text
+company_name
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[7]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>&#39;ＫＩＳＣＯ株式会社&#39;
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal"><span class="pre">click</span></code> を使うと、マウスのクリックをしたことになります。 KISCO
+株式会社の有価証券報告書を指定してから、クリックをしてみます。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>links[0].click()
+</pre></div>
+</div>
+</div>
+<p>新しいウインドウが出ましたね。新しいウインドウに移るには、<code class="docutils literal"><span class="pre">switch_to_window</span></code>
+を使います。 <code class="docutils literal"><span class="pre">browser.window_handles</span></code>
+はウインドウのリストで、古いウインドウから順にリストに入っています。
+新しいウインドウは 1 番目の要素ですので、こちらに切り替えます。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>new_window = browser.window_handles[1]
+browser.switch_to_window(new_window)
+</pre></div>
+</div>
+</div>
+<p>新しいウインドウに切り替わったので、沿革を表示させるために、左側の適当な場所をクリックしたいです。</p>
+<p>とりあえず <code class="docutils literal"><span class="pre">a</span></code>
+要素をとってくれば良い気がしますが、ちょっと待ってください。
+このサイトでは <code class="docutils literal"><span class="pre">frame</span></code> 要素が使われているようです。frame 要素は現在の
+HTML の規格（HTML5)
+には廃止されましたが、それ以前に作られたサイトでは使っているものもあるようですね。</p>
+<div class="figure">
+<img alt="" src="_images/EDINET_frame.png" />
+</div>
+<p>html は各 frame に入っているので、いうなれば、Web ページが frame
+毎に分割されているようなものです。ウインドウを移動したように、各 frame
+に移動しないと、内部の html を参照することができません。</p>
+<p>実際に、<code class="docutils literal"><span class="pre">a</span></code> 要素をとってきても何も指定されません。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>browser.find_elements_by_css_selector(&#39;a&#39;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[10]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>[]
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal"><span class="pre">switch_to_frame</span></code> を使って frame 間を移動します。</p>
+<p>このページでは、まず上部と下部で frame が分かれています。
+クリックしたいのは、下部なので、下部の frame 名 <code class="docutils literal"><span class="pre">viewFrame</span></code>
+を指定して、移動します。</p>
+<p>さらに、下部の frame は左上、左下、右側の 3 つに分かれています。 左下の
+frame 名 <code class="docutils literal"><span class="pre">menuFrame2</span></code> を指定して、左下に移動します。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>browser.switch_to_frame(&quot;viewFrame&quot;)
+browser.switch_to_frame(&quot;menuFrame2&quot;)
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal"><span class="pre">a</span></code> 要素を指定して、0番目（表紙）以外をクリックします。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>browser.find_elements_by_css_selector(&#39;a&#39;)[1].click()
+</pre></div>
+</div>
+</div>
+<p>無事に企業情報が出てきました。 今度は右側の frame
+に移りたいので、一旦元に戻ってから、右側に移動していきます。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>browser.switch_to.default_content()
+browser.switch_to_frame(&quot;viewFrame&quot;)
+browser.switch_to_frame(&quot;mainFrame&quot;)
+</pre></div>
+</div>
+</div>
+<p>各情報は style_pb_after
+というクラスの要素に入っているので、セレクタで指定します。
+沿革はその中の 2 番目です。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>enkaku = browser.find_elements_by_css_selector(&#39;.style_pb_after&#39;)[2]
+</pre></div>
+</div>
+</div>
+<p>沿革かどうか一応確かめましょう。<code class="docutils literal"><span class="pre">h3</span></code> 要素を指定して、<code class="docutils literal"><span class="pre">text</span></code>
+を確認します。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>assert &#39;沿革&#39; in enkaku.find_element_by_css_selector(&#39;h3&#39;).text
+</pre></div>
+</div>
+</div>
+<p>要素に入っている HTML をとるには、<code class="docutils literal"><span class="pre">get_attribute</span></code>
+を使い、<code class="docutils literal"><span class="pre">innerHTML</span></code> を取り出します。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>enkaku_html = enkaku.get_attribute(&quot;innerHTML&quot;)
+</pre></div>
+</div>
+</div>
+<p>辞書に保存しておきましょう。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>enkaku_dict = {}
+enkaku_dict[company_name] = enkaku_html
+</pre></div>
+</div>
+</div>
+<p>これで、JavaScript のあるサイトから無事 HTML
+を取り出すことができました！ 後は、BeautifulSoup などを使って Yahoo news
+でやったことと同じようにパースするだけです。</p>
+<p>このように、<code class="docutils literal"><span class="pre">Selenium</span></code> を使えば、動的 Web
+サイトから情報を取り出すことも可能です。</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="web_scraping.html" class="btn btn-neutral" title="Web スクレイピング入門" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Takahiro Miura.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

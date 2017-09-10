@@ -1,0 +1,619 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Web スクレイピング入門 &mdash; Econometrics_for_python  ドキュメント</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
+    <link rel="top" title="Econometrics_for_python  ドキュメント" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Econometrics_for_python
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Python事始め.html">Python 事始め</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Python_Tutorial.html">Python Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Webサイトの構成要素.html">Web サイトの構成要素</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../web_scraping.html">Web スクレイピング入門</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Econometrics_for_python</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Web スクレイピング入門</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/scripts/web_scraping.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #303F9F;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #D84315;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 8ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    background: #f7f7f7;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.pngmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+/* nice headers on first paragraph of info/warning boxes */
+.admonition .first {
+    margin: -12px;
+    padding: 6px 12px;
+    margin-bottom: 12px;
+    color: #fff;
+    line-height: 1;
+    display: block;
+}
+.admonition.warning .first {
+    background: #f0b37e;
+}
+.admonition.note .first {
+    background: #6ab0de;
+}
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="Web-スクレイピング入門">
+<h1>Web スクレイピング入門<a class="headerlink" href="#Web-スクレイピング入門" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>Python の使い方も学び、Web ページの構造も理解したので、 早速 Web
+スクレイピングをしていきましょう。</p>
+<p>まず、このページでは手始めに <a class="reference external" href="https://news.yahoo.co.jp/topics">Yahoo news
+のトピックス一覧</a>
+から、各記事のタイトルを収集することを目指します。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>%pwd
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[22]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>&#39;C:\\Users\\takam\\Dropbox\\sphinx\\econometrics_for_python\\scripts&#39;
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>import requests
+from bs4 import BeautifulSoup
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>url = &quot;https://news.yahoo.co.jp/topics&quot;
+response = requests.get(url)
+response.status_code
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[5]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>200
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>bs = BeautifulSoup(response.content,&quot;lxml&quot;)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>bs.select(&#39;a&#39;)[:5]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[14]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>[&lt;a id=&quot;yjPagetop&quot; name=&quot;yjPagetop&quot;&gt;&lt;/a&gt;,
+ &lt;a href=&quot;#yjContentsStart&quot;&gt;&lt;img alt=&quot;このページの本文へ&quot; height=&quot;1&quot; src=&quot;https://s.yimg.jp/yui/jp/tmpl/1.1.0/audionav.gif&quot; width=&quot;1&quot;/&gt;&lt;/a&gt;,
+ &lt;a href=&quot;https://news.yahoo.co.jp/search/advanced&quot;&gt;条件指定&lt;/a&gt;,
+ &lt;a href=&quot;https://news.yahoo.co.jp/profile/login&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/profile/login&#39;&quot;&gt;&lt;span class=&quot;myThumb&quot;&gt;&lt;img height=&quot;24&quot; src=&quot;https://s.yimg.jp/images/bloom/v201212/anonymous_24.png&quot; width=&quot;24&quot;/&gt;&lt;/span&gt;&lt;/a&gt;,
+ &lt;a href=&quot;https://news.yahoo.co.jp/profile/login&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/profile/login&#39;&quot;&gt;&lt;span class=&quot;myName&quot;&gt;ユーザーページ&lt;/span&gt;&lt;/a&gt;]
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>bs.select(&#39;.fl, .fr&#39;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[20]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>[&lt;ul class=&quot;fl&quot;&gt;
+ &lt;li class=&quot;ttl&quot;&gt;&lt;a href=&quot;https://news.yahoo.co.jp/hl?c=dom&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/hl?c=dom&#39;&quot;&gt;国内&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253404&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253404&#39;&quot;&gt;秋田県で震度5強 津波なし&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253366&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253366&#39;&quot;&gt;前原氏 維新と連携の意向&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253344&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253344&#39;&quot;&gt;福島第1 作業員が内部被ばく&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253391&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253391&#39;&quot;&gt;猪木議員 北朝鮮前外相と面会&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253350&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253350&#39;&quot;&gt;泉田氏 新潟5区自民で出馬へ&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253394&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253394&#39;&quot;&gt;摂食障害 チーム医療の刑務所&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253377&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253377&#39;&quot;&gt;加熱式たばこ 増税案の背景&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253340&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253340&#39;&quot;&gt;壊れた太陽光パネル 感電恐れ&lt;/a&gt;&lt;/li&gt;
+ &lt;li class=&quot;ft&quot;&gt;&lt;a href=&quot;https://news.yahoo.co.jp/list/?c=domestic&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/list/?c=domestic&#39;&quot;&gt;もっと見る&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;, &lt;ul class=&quot;fl&quot;&gt;
+ &lt;li class=&quot;ttl&quot;&gt;&lt;a href=&quot;https://news.yahoo.co.jp/hl?c=bus&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/hl?c=bus&#39;&quot;&gt;経済&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253392&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253392&#39;&quot;&gt;ツアー料金弁済 返金を増額へ&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253372&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253372&#39;&quot;&gt;試験中断のMRJ 米で飛行再開&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253370&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253370&#39;&quot;&gt;カードローン残高 毎月公表へ&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253337&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253337&#39;&quot;&gt;経常黒字2.3兆円 7月では最大&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253314&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253314&#39;&quot;&gt;「シェア」課税漏れ 対策検討&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253310&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253310&#39;&quot;&gt;コメ輸出 19年に10倍の目標&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253363&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253363&#39;&quot;&gt;神戸-沖縄結ぶフェリー運休へ&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253356&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253356&#39;&quot;&gt;SR400終了 次期モデル明言&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li class=&quot;ft&quot;&gt;&lt;a href=&quot;https://news.yahoo.co.jp/list/?c=economy&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/list/?c=economy&#39;&quot;&gt;もっと見る&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;, &lt;ul class=&quot;fl&quot;&gt;
+ &lt;li class=&quot;ttl&quot;&gt;&lt;a href=&quot;https://news.yahoo.co.jp/hl?c=c_spo&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/hl?c=c_spo&#39;&quot;&gt;スポーツ&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253401&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253401&#39;&quot;&gt;女子バレー 強豪ブラジル撃破&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253396&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253396&#39;&quot;&gt;3横綱休場 懸賞200本取り下げ&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253393&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253393&#39;&quot;&gt;大谷 1年ぶりのマルチ本塁打&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253381&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253381&#39;&quot;&gt;阪神・鳥谷 2000安打を達成&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253382&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253382&#39;&quot;&gt;中国テコンドー段証発行 物議&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253374&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253374&#39;&quot;&gt;スノボW杯 笑顔弾ける15歳V&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253362&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253362&#39;&quot;&gt;一度は諦め 元大学職員の十両&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253361&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253361&#39;&quot;&gt;ジェフ千葉 消えた脂身と白米&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li class=&quot;ft&quot;&gt;&lt;a href=&quot;https://news.yahoo.co.jp/list/?c=sports&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/list/?c=sports&#39;&quot;&gt;もっと見る&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;, &lt;ul class=&quot;fl&quot;&gt;
+ &lt;li class=&quot;ttl&quot;&gt;&lt;a href=&quot;https://news.yahoo.co.jp/hl?c=c_sci&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/hl?c=c_sci&#39;&quot;&gt;科学&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253385&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253385&#39;&quot;&gt;地磁気の乱れ ピーク過ぎる&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253345&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253345&#39;&quot;&gt;太陽フレア 北海道オーロラも&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253332&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253332&#39;&quot;&gt;太陽フレア 粒子が地球に到達&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253406&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253406&#39;&quot;&gt;オプジーボ 胃がんにも拡大&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253375&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253375&#39;&quot;&gt;「白頭山」調査 停滞の恐れ&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253386&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253386&#39;&quot;&gt;リカオン くしゃみで投票?&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253360&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253360&#39;&quot;&gt;空気不要 近未来型タイヤ開発&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253327&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253327&#39;&quot;&gt;新種トリュフ 熱帯域で初発見&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li class=&quot;ft&quot;&gt;&lt;a href=&quot;https://news.yahoo.co.jp/list/?c=science&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/list/?c=science&#39;&quot;&gt;もっと見る&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;, &lt;ul class=&quot;fr&quot;&gt;
+ &lt;li class=&quot;ttl&quot;&gt;&lt;a href=&quot;https://news.yahoo.co.jp/hl?c=c_int&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/hl?c=c_int&#39;&quot;&gt;国際&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253398&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253398&#39;&quot;&gt;メキシコM8.1多数生き埋めか&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253371&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253371&#39;&quot;&gt;北 太陽フレアで発射断念も&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253395&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253395&#39;&quot;&gt;微量の放射性物質を検出 韓国&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253335&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253335&#39;&quot;&gt;米空母が横須賀出港 北けん制&lt;span class=&quot;icVideo&quot;&gt;動画&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253311&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253311&#39;&quot;&gt;メキシコ 北朝鮮大使を追放へ&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253357&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253357&#39;&quot;&gt;相次ぐ米艦衝突 訓練不足横行&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253369&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253369&#39;&quot;&gt;ハリケーン避難で大渋滞 米&lt;span class=&quot;icVideo&quot;&gt;動画&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253312&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253312&#39;&quot;&gt;スペイン 投票巡り緊張高まる&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li class=&quot;ft&quot;&gt;&lt;a href=&quot;https://news.yahoo.co.jp/list/?c=world&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/list/?c=world&#39;&quot;&gt;もっと見る&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;, &lt;ul class=&quot;fr&quot;&gt;
+ &lt;li class=&quot;ttl&quot;&gt;&lt;a href=&quot;https://news.yahoo.co.jp/hl?c=c_ent&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/hl?c=c_ent&#39;&quot;&gt;エンタメ&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253408&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253408&#39;&quot;&gt;元SMAP3人のページ消える&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253379&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253379&#39;&quot;&gt;田中聖が謝罪と決意 歌いたい&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253373&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253373&#39;&quot;&gt;つながり大事に 愛される出川&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253354&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253354&#39;&quot;&gt;蝶野 今年はもうビンタしない&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253343&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253343&#39;&quot;&gt;朝ドラ 桃李はなぜ子役使わず&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253330&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253330&#39;&quot;&gt;ナイトスクープ秘書 妊娠報告&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253323&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253323&#39;&quot;&gt;aiko 左足骨折隠しツアー完遂&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253307&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253307&#39;&quot;&gt;北斗の拳 ザコ主役舞台に美学&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li class=&quot;ft&quot;&gt;&lt;a href=&quot;https://news.yahoo.co.jp/list/?c=entertainment&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/list/?c=entertainment&#39;&quot;&gt;もっと見る&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;, &lt;ul class=&quot;fr&quot;&gt;
+ &lt;li class=&quot;ttl&quot;&gt;&lt;a href=&quot;https://news.yahoo.co.jp/hl?c=c_sci&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/hl?c=c_sci&#39;&quot;&gt;IT&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253383&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253383&#39;&quot;&gt;モンストに480円の月額コース&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253358&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253358&#39;&quot;&gt;DMMもシェアサイクル参入へ&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253348&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253348&#39;&quot;&gt;SNS人気写真家 実は存在せず&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253341&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253341&#39;&quot;&gt;足が臭いと気絶 犬型ロボ開発&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253321&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253321&#39;&quot;&gt;1.4億人のデータ流出か 米国&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253306&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253306&#39;&quot;&gt;新iPhone 生産1カ月遅れか&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253246&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253246&#39;&quot;&gt;外国人向け防災HP お粗末翻訳&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253242&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253242&#39;&quot;&gt;消えるトレーダー AI活用の今&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li class=&quot;ft&quot;&gt;&lt;a href=&quot;https://news.yahoo.co.jp/list/?c=computer&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/list/?c=computer&#39;&quot;&gt;もっと見る&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;, &lt;ul class=&quot;fr&quot;&gt;
+ &lt;li class=&quot;ttl&quot;&gt;&lt;a href=&quot;https://news.yahoo.co.jp/hl?c=loc&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/hl?c=loc&#39;&quot;&gt;地域&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253388&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253388&#39;&quot;&gt;国際手配の男 日本で人殺した&lt;span class=&quot;icVideo&quot;&gt;動画&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253368&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253368&#39;&quot;&gt;水俣病補償 2審破棄し不支給&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253364&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253364&#39;&quot;&gt;御嶽山 遺族と生還者の歩み&lt;span class=&quot;icVideo&quot;&gt;動画&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253378&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253378&#39;&quot;&gt;「白い粉動画」投稿者を逮捕&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253349&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253349&#39;&quot;&gt;強姦 元NHK記者側が無罪主張&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253400&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253400&#39;&quot;&gt;強豪剣道部 いじめた3人退学&lt;span class=&quot;icVideo&quot;&gt;動画&lt;/span&gt;&lt;span class=&quot;icNew&quot;&gt;new&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253359&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253359&#39;&quot;&gt;小学生取材パンフ好評 喜界島&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;https://news.yahoo.co.jp/pickup/6253336&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/pickup/6253336&#39;&quot;&gt;甲子園への期待 人口減止める&lt;span class=&quot;icPhoto&quot;&gt;写真&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li class=&quot;ft&quot;&gt;&lt;a href=&quot;https://news.yahoo.co.jp/list/?c=local&quot; onmousedown=&quot;this.href=&#39;https://news.yahoo.co.jp/list/?c=local&#39;&quot;&gt;もっと見る&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;]
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Takahiro Miura.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
