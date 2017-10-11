@@ -6,6 +6,8 @@
 Python による Web スクレイピングにようこそ！
 ===================================================
 
+このドキュメントの資料は　`https://github.com/takahiromiura/web-scraping <https://github.com/takahiromiura/web-scraping>`_ にあります。
+
 データ分析をするときにデータをどこから取ってきますか？
 
 Web から？その場合は、どうデータにしますか？
@@ -31,7 +33,6 @@ Python と Web ページが一通りわかるようになったら、Web スク�
    Webサイトの構成要素
    web_scraping
    Selenium
-   Scrapy入門
    Q&A
 
 .. todolist::
