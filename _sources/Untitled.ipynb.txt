@@ -1,6 +1,612 @@
 {
- "cells": [],
- "metadata": {},
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## クラス"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2018-01-13T14:09:59.549045Z",
+     "start_time": "2018-01-13T14:09:59.544044Z"
+    }
+   },
+   "source": [
+    "最初に書いた通り、Python はオブジェクト指向プログラミング言語です。\n",
+    "オブジェクト指向のプログラミングをすると、どういったメリットがあるのでしょうか。\n",
+    "それは、コードを整理整頓することができるという一言に尽きると思います。\n",
+    "\n",
+    "その効果を見ていくために、次のタスクを考えてみましょう。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Python では、クラスを使うことによってそういった関数や変数をひとまとめにすることができます。 `class` によってクラスを定義します。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* アンケートのデータ分析\n",
+    "\n",
+    "あなたは、ある機関が集計したアンケートのデータ 5 年分を使って、年収と年齢の関係を調べようとしています。\n",
+    "また、性別や婚姻状況がもたらす影響もその際には考慮しなければいけません。\n",
+    "\n",
+    "残念ながら、年収や年齢などという変数は作成していないようです。\n",
+    "代わりに、 q02, q12 などの質問項目がそれらと対応していることがわかりました。\n",
+    "\n",
+    "さらにやっかいなのは、年収や年齢に対応する質問項目がアンケートの実施年によって異なることです！\n",
+    "\n",
+    "さて、あなたはデータ分析をする前に、まずデータをきれいに整形する必要が出てきました。\n",
+    "やることをリストにすると、次のようになるでしょう。\n",
+    "\n",
+    "1. 年収の変数を作成する\n",
+    "1. 年齢の変数を作成する\n",
+    "1. 同様に、他に使用する変数を作成する\n",
+    "\n",
+    "上記の操作は各年のアンケートで行うので、関数を作成して使いまわしした方が良いでしょう。\n",
+    "例えば、次のような関数を作ることになるでしょう。\n",
+    "\n",
+    "* サーベイの読み込み\n",
+    "* 年収の変数の作成（対応する質問項目を指定する）\n",
+    "* 年齢の変数の作成（対応する質問項目を指定する）\n",
+    "* 他、変数の作成（対応する質問項目を指定する）\n",
+    "\n",
+    "ここまでは何をやっているかは把握できるでしょう。しかし、追加で都道府県別のデータも使用することになった場合はどうでしょうか。しかも、この場合もデータを整形する必要があるとしたら。\n",
+    "\n",
+    "各種データの操作をひとまとめにしたら、すっきりするのではないでしょうか。また、各種データに使用する変数もひとまとめにできたら良いのではないでしょうか。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2018-01-16T17:04:51.842345",
+     "start_time": "2018-01-16T17:04:51.838337"
+    },
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "class FirstClass:\n",
+    "    \n",
+    "    pass"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "関数と同じように、クラスの内容をインデント・ブロック内に書いていきます。\n",
+    "まず `FirstClass` というクラスを定義しました。\n",
+    "次のようにクラスを呼び出してみます。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2018-01-16T17:05:07.794052",
+     "start_time": "2018-01-16T17:05:07.788035"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<__main__.FirstClass at 0x226a79d6b00>"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "FirstClass()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 属性"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "ただ、このクラスは特に変数も関数も持っていないので、変数を付与しましょう。\n",
+    "\n",
+    "次のように、インデント・ブロック内に変数を定義します。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2018-01-16T17:13:11.017048",
+     "start_time": "2018-01-16T17:13:11.011032"
+    },
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "class SecondClass:\n",
+    "    \n",
+    "    a = 100 #クラス属性\n",
+    "    "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "クラスの中で `a` という変数を定義しました。クラスが持つ変数を **属性** と呼びます。\n",
+    "また、属性にはクラス属性とインスタンス属性があります。\n",
+    "\n",
+    "インデント・ブロック内で定義した変数はクラス属性です。2 つの違いは後ほど説明します。\n",
+    "クラスの属性を参照するには、`クラス名.属性名` とします。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2018-01-16T17:13:27.312973",
+     "start_time": "2018-01-16T17:13:27.306968"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "100"
+      ]
+     },
+     "execution_count": 23,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "SecondClass().a"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### メソッド\n",
+    "\n",
+    "今度は、関数を持たせましょう。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2018-01-16T17:16:06.500013",
+     "start_time": "2018-01-16T17:16:06.492080"
+    },
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "class ThirdClass:\n",
+    "    \n",
+    "    def print_b(self):\n",
+    "        b = 50\n",
+    "        print(b)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2018-01-16T17:15:14.438933",
+     "start_time": "2018-01-16T17:15:14.430869"
+    }
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "50\n"
+     ]
+    }
+   ],
+   "source": [
+    "def print_b():\n",
+    "    b = 50\n",
+    "    print(b)\n",
+    "    \n",
+    "print_b()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "クラスが持つ関数を **メソッド** と呼びます。メソッドの呼び出しは `クラス名.メソッド名` とします。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2018-01-16T17:14:21.555566",
+     "start_time": "2018-01-16T17:14:21.546312"
+    }
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "50\n"
+     ]
+    }
+   ],
+   "source": [
+    "ThirdClass().print_b()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "メソッドで注意しなければならないのは、メソッドでは自動的に第 1 引数としてクラス自身が参照されます。Python では慣例的にこれを `self` としてます。\n",
+    "\n",
+    "クラスの中のメソッドで違うメソッドを呼び出す場合、また属性を呼び出す場合は、`self.メソッド名`、`self.属性名` とすればできます。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2018-01-16T17:21:46.953400",
+     "start_time": "2018-01-16T17:21:46.940824"
+    }
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "100\n",
+      "100\n"
+     ]
+    }
+   ],
+   "source": [
+    "class FourthClass:\n",
+    "    \n",
+    "    a = 100\n",
+    "    \n",
+    "    def print_a(self):\n",
+    "        print(self.a) # 属性 a を出力\n",
+    "        \n",
+    "    def call_print(self):\n",
+    "        self.print_a() # print_a メソッドの呼び出し\n",
+    "        \n",
+    "FourthClass().print_a()\n",
+    "FourthClass().call_print()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### インスタンス"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "アンケートのデータ整理を行う、`Survey` というクラスを作ったとしましょう。アンケートのデータ整理で行う操作はすべて共通ですが、いくつかの属性は異なるべきです（例えば、アンケートの実施年など）。\n",
+    "\n",
+    "クラスを呼び出すことによって、そのクラスの属性とメソッドを持つ **インスタンス** が作成されます。インスタンスを作成する際に、コントラクタというメソッドを使うことによって、同じクラスでも別の属性を付与することができます。\n",
+    "\n",
+    "コントラクタは、インスタンスを作成した場合に最初に実行されます。コントラクタは `__init__` というメソッド名になります。\n",
+    "\n",
+    "コントラクタの中で属性を定義することによって、インスタンス毎に別の属性を付与することができます。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 36,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2018-01-16T17:26:17.557192",
+     "start_time": "2018-01-16T17:26:17.548064"
+    },
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "class Five:\n",
+    "    \n",
+    "    def __init__(self):\n",
+    "        print('Called!!!!')\n",
+    "        \n",
+    "    def print_call(self):\n",
+    "        print(\"Calling!!!\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 37,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2018-01-16T17:26:38.277874",
+     "start_time": "2018-01-16T17:26:38.265361"
+    }
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Called!!!!\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<__main__.Five at 0x226a79f7080>"
+      ]
+     },
+     "execution_count": 37,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "Five()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 75,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2018-01-16T17:42:18.085950",
+     "start_time": "2018-01-16T17:42:18.077266"
+    },
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "class Survey:\n",
+    "    \n",
+    "    a = 100 #クラス属性\n",
+    "    \n",
+    "    def __init__(self, year): # コントラクタ\n",
+    "        self.year = year # インスタンス属性\n",
+    "        \n",
+    "    def print_a(self):\n",
+    "        print(self.a)\n",
+    "        "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "クラスの中でメソッド外で定義した属性を **クラス属性** と呼びます。これはクラスで共通です。一方、コントラクタ内で定義した属性を **インスタンス属性** と呼びます。これはインスタンスによって異なります。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 72,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2018-01-16T17:38:07.805141",
+     "start_time": "2018-01-16T17:38:07.793497"
+    }
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "100\n",
+      "100\n",
+      "2010\n"
+     ]
+    }
+   ],
+   "source": [
+    "Survey2010 = Survey(year = 2010)\n",
+    "print(Survey2010.a)\n",
+    "print(Survey2010.year)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 65,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2018-01-16T17:36:33.876201",
+     "start_time": "2018-01-16T17:36:33.868656"
+    }
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "100\n",
+      "2011\n"
+     ]
+    }
+   ],
+   "source": [
+    "Survey2011 = Survey(year = 2011)\n",
+    "print(Survey2011.a)\n",
+    "print(Survey2011.year)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 継承"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "ほとんど年のアンケートではデータ整理の操作は同じですが、ある年だけ異なる操作と属性が必要だったとしましょう。**継承** を使うことによって、属性とメソッドを引き継いで、新たにクラスを定義することができます。\n",
+    "\n",
+    "クラスの定義の際に、`クラス名（継承クラス名）` とすることによって、継承を行うことができます。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 78,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2018-01-16T17:42:53.684670",
+     "start_time": "2018-01-16T17:42:53.676641"
+    },
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "class SurveyExtra(Survey):\n",
+    "    \n",
+    "    b = 50 # 追加クラス属性\n",
+    "    \n",
+    "    def __init__(self, year, c):\n",
+    "        super().__init__(year) # Survey のコントラクタ\n",
+    "        self.c = c # 追加インスタンス属性\n",
+    "        \n",
+    "    def print_b(self): # 追加メソッド\n",
+    "        print(self.b)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "新たに定義した `SurveyExtra` は、継承した `Survey` の属性とメソッドを持っています。まずはそれを確認してみます。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 77,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2018-01-16T17:42:40.776274",
+     "start_time": "2018-01-16T17:42:40.766889"
+    }
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "100\n",
+      "100\n"
+     ]
+    }
+   ],
+   "source": [
+    "Survey2009 = SurveyExtra(year = 2009, c = 10)\n",
+    "print(Survey2009.a)\n",
+    "Survey2009.print_a()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2018-01-15T15:27:21.644910Z",
+     "start_time": "2018-01-15T15:27:21.641409Z"
+    }
+   },
+   "source": [
+    "`SurveyExtra` で定義した属性とメソッドを呼び出します。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 79,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2018-01-16T17:42:55.606671",
+     "start_time": "2018-01-16T17:42:55.596642"
+    }
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "50\n",
+      "50\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(Survey2009.b)\n",
+    "Survey2009.print_b()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "継承したクラスと同じ名前のメソッドを定義すると、継承したクラスのメソッドは上書きされますが、`super()` を使えば継承したクラスを呼び出すことができます。\n",
+    "\n",
+    "これによって、例えば `Survey` のインスタンス属性に新たにインスタンス属性を追加できます。\n",
+    "`SurveyExtra` のコントラクタを詳しく解説すると、\n",
+    "1. まず引数に `Survey` のコントラクタで必要だった `year` と、新たに `b` という引数を追加しています。\n",
+    "2. `super().__init__(year)` によって、`Survey` のコントラクタを実行しています。これによってインスタンス属性 `year` が付与されました。\n",
+    "3. 最後に、 `self.c = c` で新たなインスタンス属性を付与しました。"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.1"
+  }
+ },
  "nbformat": 4,
  "nbformat_minor": 2
 }
